@@ -1,0 +1,12 @@
+@use "sass:math";
+
+$border-radius-root: 2px !default;
+$rounded: (
+    0: 0,
+    "sm": math.div($border-radius-root, 2),
+    null: $border-radius-root,
+    "lg": $border-radius-root * 2,
+    "xl": $border-radius-root * 6,
+    "pill": 9999px,
+    "circle": 50%,
+);

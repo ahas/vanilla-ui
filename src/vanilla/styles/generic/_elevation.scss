@@ -1,0 +1,12 @@
+@import "../styles";
+
+$i: 24;
+@while ($i >= 0) {
+    .elevation-#{$i} {
+        box-shadow: map-get($shadow-key-umbra, $i), map-get($shadow-key-penumbra, $i), map-get($shadow-key-ambient, $i);
+        transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: box-shadow;
+    }
+
+    $i: $i - 1;
+}

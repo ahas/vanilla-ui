@@ -1,0 +1,32 @@
+@import '../../styles/styles';
+
+$table-border-radius: $border-radius-root !default;
+$table-dense-header-height: 32px !default;
+$table-dense-row-height: $table-dense-header-height !default;
+
+$table-header-mobile-select-chip-height: 24px !default;
+$table-header-mobile-select-margin-bottom: 8px !default;
+$table-header-mobile-select-max-width: 56px !default;
+$table-header-sort-badge-height: 18px !default;
+$table-header-sort-badge-min-height: 18px !default;
+$table-header-sort-badge-min-width: 18px !default;
+$table-header-sort-badge-width: 18px !default;
+
+$table-footer-font-size: map-deep-get($headings, 'caption', 'size') !default;
+$table-footer-icons-after-btn-margin-start: 7px !default;
+$table-footer-icons-before-btn-margin-end: 7px !default;
+$table-footer-padding: 12px 8px !default;
+$table-footer-pagination-margin-end: 32px !default;
+$table-footer-pagination-margin-start: 24px !default;
+$table-footer-select-margin-end: 14px !default;
+$table-footer-select-select-margin-start: 34px !default;
+$table-footer-select-select-margin-y: 13px !default;
+$table-footer-select-selections-comma-font-size: map-deep-get($headings, 'caption', 'size') !default;
+
+$table-progress-border-radius: $table-border-radius $table-border-radius 0 0 !default;
+$table-regular-header-height: 48px !default;
+$table-regular-row-height: 48px !default;
+$table-row-group-children-td-height: 35px !default;
+$table-scroll-bar-width: 17px !default;
+$table-regular-header-font-size: map-deep-get($headings, 'caption', 'size') !default;
+$table-regular-row-font-size: map-deep-get($headings, 'subtitle-2', 'size') !default;

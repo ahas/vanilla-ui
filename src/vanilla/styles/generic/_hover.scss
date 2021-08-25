@@ -1,0 +1,22 @@
+.hover-up,
+.hover-down,
+.hover-left,
+.hover-right {
+    transition: transform 0.3s !important;
+}
+
+.hover-up:hover {
+    transform: translateY(-12px);
+}
+
+.hover-down:hover {
+    transform: translateY(12px);
+}
+
+.hover-left:hover {
+    transform: translateX(-12px);
+}
+
+.hover-right:hover {
+    transform: translateX(12px);
+}

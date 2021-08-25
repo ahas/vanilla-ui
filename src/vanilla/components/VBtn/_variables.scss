@@ -1,0 +1,37 @@
+@import "../../styles/styles";
+
+$btn-active-opacity: 0.18 !default;
+$btn-focus-opacity: 0.24 !default;
+$btn-hover-opacity: 0.08 !default;
+$btn-transition: opacity 0.2s map-get($transition, "ease-in-out") !default;
+
+$btn-states: (
+    "states": (
+        "activated": $btn-active-opacity,
+        "focus": $btn-focus-opacity,
+        "hover": $btn-hover-opacity,
+    ),
+);
+
+$btn-sizes: (
+    "x-small": 20,
+    "small": 28,
+    "default": 36,
+    "large": 44,
+    "x-large": 52,
+);
+
+$icon-sizes: (
+    "x-small": 18,
+    "small": 24,
+    "default": 24,
+    "large": 28,
+    "x-large": 32,
+);
+
+$btn-icon-font-size: 18px !default;
+$btn-square-min-width: 34px !default;
+$btn-square-min-height: 24px !default;
+$btn-squire-padding: 5px !default;
+$btn-outline-border-width: thin !default;
+$btn-border-radius: 5px !default;

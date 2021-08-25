@@ -1,0 +1,173 @@
+@import "./_variables";
+
+$list-border-radius: 0 !default;
+$list-elevation: 0 !default;
+$list-padding: 8px 0 !default;
+$list-subheader-padding-top: 0 !default;
+
+$list-shaped-border-radius: 0 !default;
+$list-shaped-padding: 8px !default;
+
+$list-dense-subheader-padding: 0 8px !default;
+$list-dense-subheader-font-size: 0.75rem !default;
+$list-dense-subheader-height: 40px !default;
+
+$list-item-min-height: 48px !default;
+$list-item-two-line-min-height: 64px !default;
+$list-item-three-line-min-height: 88px !default;
+
+$list-nav-rounded-item-margin-bottom: 8px !default;
+$list-nav-rounded-dense-item-margin-bottom: 4px !default;
+$list-nav-padding-left: 8px !default;
+$list-nav-padding-right: 8px !default;
+$list-nav-item-padding: 0 8px !default;
+$list-nav-border-radius: $border-radius-root !default;
+
+@mixin list-shaped($size) {
+    .o-list-item {
+        &,
+        &::before,
+        > .o-ripple__container {
+            @include ltr() {
+                border-bottom-right-radius: #{$size * 0.6666666666666667} !important;
+                border-top-right-radius: #{$size * 0.6666666666666667} !important;
+            }
+            @include rtl() {
+                border-bottom-left-radius: #{$size * 0.6666666666666667} !important;
+                border-top-left-radius: #{$size * 0.6666666666666667} !important;
+            }
+        }
+    }
+}
+
+@mixin list-rounded($size) {
+    .o-list-item {
+        &,
+        &::before,
+        > .o-ripple__container {
+            border-radius: #{$size * 0.6666666666666667} !important;
+        }
+    }
+}
+
+.o-list {
+    &.primary,
+    &.secondary,
+    &.accent,
+    &.success,
+    &.danger,
+    &.error,
+    &.warning,
+    &.info {
+        > .o-list-item {
+            color: map-deep-get($theme-dark, "text", "primary");
+        }
+    }
+}
+
+@include theme(o-list) using ($theme) {
+    background: map-get($theme, "cards");
+    color: map-deep-get($theme, "text", "primary");
+
+    .o-list--disabled {
+        color: map-deep-get($theme, "text", "disabled");
+    }
+
+    .o-list-group--active:before,
+    .o-list-group--active:after {
+        background: map-get($theme, "dividers");
+    }
+}
+// Sheet
+@include sheet(o-list, $list-elevation, $list-border-radius, $list-shaped-border-radius);
+
+.o-list {
+    display: block;
+    padding: $list-padding;
+    position: static;
+    @include elevationTransition();
+}
+
+// Modifier
+.o-list--disabled {
+    pointer-events: none;
+}
+
+.o-list--flat {
+    .o-list-item:before {
+        display: none;
+    }
+}
+
+.o-list--dense {
+    .o-subheader {
+        font-size: $list-dense-subheader-font-size;
+        height: $list-dense-subheader-height;
+        padding: $list-dense-subheader-padding;
+    }
+}
+
+.o-list--nav,
+.o-list--rounded {
+    .o-list-item:not(:last-child):not(:only-child) {
+        margin-bottom: $list-nav-rounded-item-margin-bottom;
+    }
+
+    &.o-list--dense .o-list-item,
+    .o-list-item--dense {
+        &:not(:last-child):not(:only-child) {
+            margin-bottom: $list-nav-rounded-dense-item-margin-bottom;
+        }
+    }
+}
+
+.o-list--nav {
+    padding-left: $list-nav-padding-left;
+    padding-right: $list-nav-padding-right;
+
+    .o-list-item {
+        padding: $list-nav-item-padding;
+    }
+
+    .o-list-item,
+    .o-list-item:before {
+        border-radius: $list-nav-border-radius;
+    }
+}
+
+.o-list.o-sheet--shaped {
+    @include list-shaped($list-item-min-height);
+
+    &.o-list--two-line {
+        @include list-shaped($list-item-two-line-min-height);
+    }
+
+    &.o-list--three-line {
+        @include list-shaped($list-item-three-line-min-height);
+    }
+
+    @include ltr() {
+        padding-right: $list-shaped-padding;
+    }
+
+    @include rtl() {
+        padding-left: $list-shaped-padding;
+    }
+}
+
+.o-list--rounded {
+    padding: 8px;
+    @include list-rounded($list-item-min-height);
+
+    &.o-list--two-line {
+        @include list-rounded($list-item-two-line-min-height);
+    }
+
+    &.o-list--three-line {
+        @include list-rounded($list-item-three-line-min-height);
+    }
+}
+
+.o-list--subheader {
+    padding-top: $list-subheader-padding-top;
+}

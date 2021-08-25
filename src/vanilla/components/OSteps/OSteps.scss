@@ -1,0 +1,298 @@
+@import "./variables";
+
+@include theme(o-steps) using ($theme) {
+    background: map-get($theme, "bg-color");
+
+    .o-steps__step {
+        &:not(.o-steps__step--active):not(.o-steps__step--complete):not(.o-steps__step--error) {
+            .o-steps__step__step {
+                background: rgba(map-get($theme, "fg-color"), map-get($theme, "disabled-or-hints-opacity"));
+            }
+        }
+
+        &__step {
+            color: map-deep-get($theme, "steps", "active");
+
+            .o-icon {
+                color: map-deep-get($theme, "steps", "active");
+            }
+        }
+    }
+
+    .o-steps__header {
+        .o-divider {
+            border-color: rgba(map-get($theme, "fg-color"), map-get($theme, "divider-opacity"));
+        }
+    }
+
+    .o-steps__step {
+        &--active {
+            .o-steps__label {
+                text-shadow: 0px 0px 0px rgba(map-get($theme, "fg-color"), 1);
+            }
+        }
+
+        &--editable:hover {
+            background: rgba(map-get($theme, "fg-color"), 0.06);
+
+            .o-steps__label {
+                text-shadow: 0px 0px 0px rgba(map-get($theme, "fg-color"), 1);
+            }
+        }
+
+        &--complete {
+            .o-steps__label {
+                color: map-deep-get($theme, "steps", "completed");
+            }
+        }
+
+        &--inactive {
+            &.o-steps__step--editable:not(.o-steps__step--error) {
+                &:hover {
+                    .o-steps__step__step {
+                        background: map-deep-get($theme, "steps", "hover");
+                    }
+                }
+            }
+        }
+    }
+
+    .o-steps__label {
+        color: rgba(map-get($theme, "fg-color"), map-get($theme, "disabled-or-hints-opacity"));
+
+        small {
+            color: rgba(map-get($theme, "fg-color"), map-get($theme, "secondary-opacity"));
+        }
+    }
+
+    &--non-linear {
+        .o-steps__step:not(.o-steps__step--complete):not(.o-steps__step--error) {
+            .o-steps__label {
+                color: rgba(map-get($theme, "fg-color"), map-get($theme, "secondary-opacity"));
+            }
+        }
+    }
+
+    &--vertical {
+        .o-steps__content:not(:last-child) {
+            @include ltr() {
+                border-left: 1px solid rgba(map-get($theme, "fg-color"), map-get($theme, "divider-opacity"));
+            }
+
+            @include rtl() {
+                border-right: 1px solid rgba(map-get($theme, "fg-color"), map-get($theme, "divider-opacity"));
+            }
+        }
+    }
+}
+
+.o-steps {
+    border-radius: $steps-border-radius;
+    overflow: hidden;
+    position: relative;
+
+    &__header {
+        height: $steps-header-height;
+        align-items: stretch;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .o-divider {
+            align-self: center;
+            margin: $steps-header-divider-margin;
+        }
+    }
+
+    &__items {
+        position: relative;
+        overflow: hidden;
+    }
+
+    &__step__step {
+        align-items: center;
+        border-radius: 50%;
+        display: inline-flex;
+        font-size: $step-font-size;
+        justify-content: center;
+        height: $step-height;
+        min-width: $step-min-width;
+        width: $step-width;
+        transition: 0.3s map-get($transition, "fast-in-fast-out");
+
+        @include ltr() {
+            margin-right: $step-margin;
+        }
+
+        @include rtl() {
+            margin-left: $step-margin;
+        }
+
+        .o-icon.o-icon {
+            font-size: $step-icon-font-size;
+
+            &.o-icon--svg {
+                height: $step-icon-font-size;
+                width: $step-icon-font-size;
+            }
+        }
+    }
+
+    &__step {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        padding: $step-padding;
+        position: relative;
+
+        &--active {
+            .o-steps__label {
+                transition: 0.3s map-get($transition, "ease-in-out");
+            }
+        }
+
+        &--editable {
+            cursor: pointer;
+        }
+
+        &.o-steps__step--error {
+            .o-steps__step__step {
+                background: transparent;
+                color: inherit;
+
+                .o-icon {
+                    font-size: $step-error-icon-font-size;
+                    color: inherit;
+                }
+            }
+
+            .o-steps__label {
+                color: inherit;
+                text-shadow: none;
+                font-weight: 500;
+
+                small {
+                    color: inherit;
+                }
+            }
+        }
+    }
+
+    &__label {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        line-height: $steps-label-line-height;
+
+        @include ltr() {
+            text-align: left;
+        }
+
+        @include rtl() {
+            text-align: right;
+        }
+
+        small {
+            font-size: $steps-label-small-font-size;
+            font-weight: $steps-label-small-font-weight;
+            text-shadow: none;
+        }
+    }
+
+    &__wrapper {
+        overflow: hidden;
+        transition: none;
+    }
+
+    &__content {
+        top: 0;
+        padding: $steps-content-padding;
+        flex: 1 0 auto;
+        // Chrome has an issue with overflow hidden for rendering
+        // Originally used translateZ but this messes up fixed
+        // elements within the steps
+        // Fix for #512 and #620
+        // overflow: hidden
+        width: 100%;
+
+        > .o-btn {
+            margin: $steps-content-btn-margin;
+        }
+    }
+
+    &--is-booted {
+        .o-steps__content,
+        .o-steps__wrapper {
+            transition: 0.3s map-get($transition, "swing");
+        }
+    }
+
+    &--vertical {
+        padding-bottom: $steps-vertical-padding-bottom;
+
+        .o-steps__content {
+            padding: $steps-vertical-content-padding;
+            width: auto;
+            @include ltr() {
+                margin: $steps-vertical-content-ltr-margin;
+            }
+
+            @include rtl() {
+                margin: $steps-vertical-content-rtl-margin;
+            }
+        }
+
+        .o-steps__step {
+            padding: $steps-vertical-step-padding;
+        }
+
+        .o-steps__step__step {
+            @include ltr() {
+                margin-right: $steps-vertical-step-margin;
+            }
+
+            @include rtl() {
+                margin-left: $steps-vertical-step-margin;
+            }
+        }
+    }
+
+    &--alt-labels {
+        .o-steps__header {
+            height: auto;
+
+            .o-divider {
+                margin: $steps-alt-labels-header-divider;
+                align-self: flex-start;
+            }
+        }
+
+        .o-steps__step {
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            flex-basis: $steps-alt-labels-flex-basis small {
+                align-self: center;
+            }
+        }
+
+        .o-steps__step__step {
+            margin-bottom: $steps-alt-labels-step-margin-bottom;
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
+
+@media #{map-get($display-breakpoints, 'sm-and-down')} {
+    .o-steps:not(.o-steps--vertical) {
+        .o-steps__label {
+            display: none;
+        }
+    }
+
+    .o-steps__step__step {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

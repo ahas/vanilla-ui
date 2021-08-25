@@ -1,0 +1,58 @@
+@import "../../styles/styles";
+
+// Theme
+@include theme(v-app) using ($theme) {
+    background: map-get($theme, "background");
+    color: map-deep-get($theme, "text", "primary");
+
+    .text {
+        &--primary {
+            color: map-deep-get($theme, "text", "primary") !important;
+        }
+
+        &--secondary {
+            color: map-deep-get($theme, "text", "secondary") !important;
+        }
+
+        &--disabled {
+            color: map-deep-get($theme, "text", "disabled") !important;
+        }
+    }
+}
+
+.v-app {
+    display: flex;
+    font-family: $body-font-family;
+    line-height: $line-height-root;
+
+    a {
+        cursor: pointer;
+    }
+
+    &--is-rtl {
+        direction: rtl;
+    }
+
+    &--wrap {
+        flex: 1 1 auto;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        max-width: 100%;
+        position: relative;
+    }
+}
+
+// Firefox overrides
+@-moz-document url-prefix() {
+    @media print {
+        .v-app {
+            display: block;
+
+            &--wrap {
+                display: block;
+            }
+        }
+    }
+}

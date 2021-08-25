@@ -1,0 +1,47 @@
+@import "./_variables";
+
+// Theme
+@include theme(o-footer) using ($theme) {
+    background-color: map-get($theme, "app-bar");
+    color: map-deep-get($theme, "text", "primary");
+}
+
+@include sheet(o-footer, $footer-elevation, $footer-border-radius, $footer-shaped-border-radius);
+
+// Block
+.o-footer {
+    align-items: center;
+    display: flex;
+    flex: 0 1 auto !important; // Don't let devs break their code
+    flex-wrap: wrap;
+    padding: $footer-padding;
+    position: relative;
+    transition-duration: $footer-transition-duration;
+    transition-property: $footer-transition-property;
+    transition-timing-function: $footer-transition-timing-function;
+    @include bootable();
+}
+
+// Modifier
+.o-footer--absolute,
+.o-footer--fixed {
+    z-index: 3;
+}
+
+.o-footer--absolute {
+    position: absolute;
+
+    &:not(.o-footer--inset) {
+        // Component already uses measurable
+        // Remove in v3.0
+        width: 100%;
+    }
+}
+
+.o-footer--fixed {
+    position: fixed;
+}
+
+.o-footer--padless {
+    padding: $footer-padless-padding;
+}

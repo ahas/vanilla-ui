@@ -1,0 +1,58 @@
+@import "./_variables.scss";
+
+@include theme(o-date-picker-header) using ($theme) {
+    .o-date-picker-header__value:not(.o-date-picker-header__value--disabled) {
+        button:not(:hover):not(:focus) {
+            color: map-deep-get($theme, "text", "primary");
+        }
+    }
+
+    .o-date-picker-header__value--disabled {
+        button {
+            color: map-deep-get($theme, "text", "disabled");
+        }
+    }
+}
+
+.o-date-picker-header {
+    padding: $date-picker-header-padding;
+
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+
+    .o-btn {
+        margin: 0;
+        z-index: auto;
+    }
+
+    .o-icon {
+        cursor: pointer;
+        user-select: none;
+    }
+}
+
+.o-date-picker-header__value {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+    div {
+        transition: $date-picker-header-value-transition;
+        width: 100%;
+    }
+
+    button {
+        cursor: pointer;
+        font-weight: $date-picker-header-button-font-weight;
+        outline: none;
+        padding: $date-picker-header-button-padding;
+        transition: $date-picker-header-button-transition;
+    }
+}
+
+.o-date-picker-header--disabled {
+    pointer-events: none;
+}

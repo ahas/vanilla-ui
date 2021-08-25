@@ -1,0 +1,103 @@
+@import "./colors.scss";
+
+$theme-light: (
+    "app-bar": map-get($grey, "lighten-2"),
+    "dividers": rgba(map-get($shades, "black"), 0.12),
+    "cards": map-get($shades, "white"),
+    "chips": #e0e0e0,
+    "states": (
+        "hover": 0.04,
+        "focus": 0.12,
+        "selected": 0.08,
+        "activated": 0.12,
+        "pressed": 0.16,
+        "dragged": 0.08,
+    ),
+    "drawer": map-get($shades, "white"),
+    "slider": (
+        "active": rgba(map-get($shades, "black"), 0.38),
+        "inactive": rgba(map-get($shades, "black"), 0.26),
+        "disabled": rgba(map-get($shades, "black"), 0.26),
+        "discrete": map-get($shades, "black"),
+    ),
+    "text": (
+        "theme": map-get($shades, "white"),
+        "primary": rgba(map-get($shades, "black"), 0.87),
+        "secondary": rgba(map-get($shades, "black"), 0.7),
+        "disabled": rgba(map-get($shades, "black"), 0.38),
+        "link": map-get($blue, "darken-2"),
+        "link-hover": map-get($grey, "darken-3"),
+    ),
+    "accordion": (
+        "focus": map-get($grey, "lighten-3"),
+    ),
+    "selection-controls": (
+        "disabled": rgba(map-get($shades, "black"), 0.26),
+        "thumb": (
+            "inactive": map-get($shades, "white"),
+            "disabled": map-get($grey, "lighten-5"),
+        ),
+        "track": (
+            "inactive": rgba(map-get($shades, "black"), 0.38),
+            "disabled": rgba(map-get($shades, "black"), 0.12),
+        ),
+    ),
+    "icons": (
+        "active": rgba(map-get($shades, "black"), 0.54),
+        "inactive": rgba(map-get($shades, "black"), 0.38),
+    ),
+    "inputs": (
+        "box": rgba(map-get($shades, "black"), 0.04),
+    ),
+    "table": (
+        "active": map-get($grey, "lighten-4"),
+        "hover": map-get($grey, "lighten-3"),
+        "group": map-get($grey, "lighten-3"),
+    ),
+    "tabs": rgba(0, 0, 0, 0.54),
+    "group-buttons": (
+        "color": map-get($shades, "black"),
+    ),
+    "buttons": (
+        "disabled": rgba(map-get($shades, "black"), 0.26),
+        "focused": rgba(map-get($shades, "black"), 0.12),
+        "focused-alt": rgba(map-get($shades, "white"), 0.6),
+        "pressed": rgba(#999, 0.4),
+    ),
+    "steps": (
+        "active": rgba(map-get($shades, "white"), 1),
+        "completed": rgba(map-get($shades, "black"), 0.87),
+        "hover": rgba(map-get($shades, "black"), 0.54),
+    ),
+    "code": (
+        "background": rgba(map-get($shades, "black"), 0.05),
+        "color": currentColor,
+    ),
+    "kbd": (
+        "background": #212529,
+        "color": map-get($shades, "white"),
+    ),
+    "picker": (
+        "body": map-get($shades, "white"),
+        "clock": map-get($grey, "lighten-2"),
+        "indeterminateTime": map-get($grey, "lighten-1"),
+        "title": map-get($grey, "lighten-2"),
+    ),
+    "color-picker": (
+        "checkerboard": rgba(map-get($shades, "white"), 0),
+    ),
+    "calendar": (
+        "background-color": map-get($shades, "white"),
+        "outside-background-color": #f7f7f7,
+        "weeknumber-background-color": #f1f3f4,
+        "line-color": map-get($grey, "lighten-2"),
+        "interval-color": map-get($grey, "darken-3"),
+        "interval-line-color": map-get($grey, "lighten-2"),
+        "text-color": map-get($shades, "black"),
+        "past-color": rgba(map-get($shades, "black"), 0.38),
+    ),
+    "fg-color": map-get($shades, "black"),
+    "secondary-opacity": 0.6,
+    "disabled-or-hints-opacity": 0.38,
+    "divider-opacity": 0.12,
+);

@@ -1,0 +1,29 @@
+@import "../../styles/styles";
+
+// Theme
+@include theme(o-input--range-slider) using ($theme) {
+    &.o-input--slider.o-input--is-disabled {
+        .o-slider.o-slider {
+            .o-slider__thumb {
+                background: map-deep-get($theme, "selection-controls", "thumb", "disabled");
+            }
+        }
+    }
+}
+
+/** Input Group */
+.o-input--range-slider {
+    &.o-input--is-disabled {
+        .o-slider__track-fill {
+            display: none;
+        }
+
+        &.o-input--slider {
+            .o-slider.o-slider {
+                .o-slider__thumb {
+                    border-color: transparent;
+                }
+            }
+        }
+    }
+}

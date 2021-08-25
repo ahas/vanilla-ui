@@ -1,0 +1,16 @@
+@import "./variables";
+
+@include theme(o-sheet) using ($theme) {
+  background-color: map-get($theme, 'cards');
+  border-color: map-get($theme, 'cards');
+  color: map-deep-get($theme, 'text', 'primary');
+
+  &--outlined {
+    border: $sheet-outlined-border-width solid map-get($theme, 'dividers');
+  }
+}
+
+// Sheet
+.o-sheet {
+    @include paper($sheet-elevation, $sheet-border-radius, $sheet-shaped-border-radius);
+}

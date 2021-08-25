@@ -1,0 +1,137 @@
+@use 'sass:math';
+@import "./mixins";
+
+@mixin make-layout-items($items: $grid-items, $gutter: $grid-gutter, $breakpoints: $grid-breakpoints) {
+    %horizontal-layout-item {
+        width: 100%;
+    }
+    %vertical-layout-item {
+        height: 100%;
+    }
+    @each $breakpoint in map-keys($breakpoints) {
+        $infix: breakpoint-infix($breakpoint, $breakpoints);
+        // Allow items to stretch full width below their breakpoints
+        @for $i from 1 through $items {
+            .layout.flex-row > .layout-item#{$infix}-#{$i} {
+                @extend %horizontal-layout-item;
+            }
+            .layout.flex-column > .layout-item#{$infix}-#{$i} {
+                @extend %vertical-layout-item;
+            }
+        }
+        .layout.flex-row > .layout-item#{$infix},
+        .layout.flex-row > .layout-item#{$infix}-auto {
+            @extend %horizontal-layout-item;
+        }
+        .layout.flex-column > .layout-item#{$infix},
+        .layout.flex-column > .layout-item#{$infix}-auto {
+            @extend %vertical-layout-item;
+        }
+        @include media-breakpoint-up($breakpoint, $breakpoints) {
+            // Provide basic `.layout-item-{bp}` classes for equal-width flexbox items
+            .layout.flex-row > .layout-item#{$infix} {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-width: 100%;
+            }
+            .layout.flex-row > .layout-item#{$infix}-auto {
+                flex: 0 0 auto;
+                width: auto;
+                max-width: 100%; // Reset earlier grid tiers
+            }
+            .layout.flex-column > .layout-item#{$infix} {
+                flex-basis: 0;
+                flex-grow: 1;
+                max-height: 100%;
+            }
+            .layout.flex-column > .layout-item#{$infix}-auto {
+                flex: 0 0 auto;
+                height: auto;
+                max-height: 100%; // Reset earlier grid tiers
+            }
+            @for $i from 1 through $items {
+                $size: $i;
+                .layout-item#{$infix}-#{$i} {
+                    flex: 0 0 percentage(math.div($size, $grid-items));
+                }
+                .layout.flex-row > .layout-item#{$infix}-#{$i} {
+                    max-width: percentage(math.div($size, $grid-items));
+                }
+                .layout.flex-column > .layout-item#{$infix}-#{$i} {
+                    max-height: percentage(math.div($size, $grid-items));
+                }
+            }
+        }
+    }
+
+    .layout-item-align-start,
+    .layout-item-align-end,
+    .layout-item-align-center {
+        display: flex;
+    }
+
+    .layout.flex-row {
+        .layout-item-align-start {
+            @include ltr() {
+                justify-content: end;
+            }
+            @include rtl() {
+                justify-content: start;
+            }
+        }
+        .layout-item-align-end {
+            @include ltr() {
+                justify-content: end;
+            }
+            @include rtl() {
+                justify-content: start;
+            }
+        }
+        .layout-item-align-center {
+            justify-content: center;
+        }
+
+        .layout-item-justify-start {
+            align-items: start;
+        }
+        .layout-item-justify-center {
+            align-items: center;
+        }
+        .layout-item-justify-end {
+            align-items: end;
+        }
+    }
+    .layout.flex-column {
+        .layout-item-align-start {
+            align-items: start;
+        }
+        .layout-item-align-center {
+            align-items: center;
+        }
+        .layout-item-align-end {
+            align-items: end;
+        }
+
+        .layout-item-justify-start {
+            @include ltr() {
+                justify-content: start;
+            }
+            @include rtl() {
+                justify-content: end;
+            }
+        }
+        .layout-item-justify-end {
+            @include ltr() {
+                justify-content: end;
+            }
+            @include rtl() {
+                justify-content: start;
+            }
+        }
+        .layout-item-justify-center {
+            justify-content: center;
+        }
+    }
+}
+
+@include make-layout-items();

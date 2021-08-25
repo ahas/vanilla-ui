@@ -1,0 +1,251 @@
+// Imports
+@import "./variables";
+
+// Theme
+@include theme(o-table) using ($theme) {
+    background-color: map-get($theme, "cards");
+    color: map-deep-get($theme, "text", "primary");
+
+    .o-table__divider {
+        border-right: thin solid map-get($theme, "dividers");
+    }
+
+    &.o-table--fixed-header {
+        thead th {
+            background: map-get($theme, "cards");
+            box-shadow: inset 0 -1px 0 map-get($theme, "dividers");
+        }
+    }
+
+    > .o-table__wrapper {
+        > table {
+            > thead {
+                > tr {
+                    > th {
+                        color: map-deep-get($theme, "text", "secondary");
+                    }
+
+                    &:last-child {
+                        > th {
+                            border-bottom: thin solid map-get($theme, "dividers");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    > .o-table__wrapper {
+        > table {
+            > tbody {
+                > tr {
+                    &:not(:last-child) {
+                        > td,
+                        > th {
+                            &:not(.o-table__mobile-row) {
+                                border-bottom: thin solid map-get($theme, "dividers");
+                            }
+
+                            &:last-child {
+                                border-bottom: thin solid map-get($theme, "dividers");
+                            }
+                        }
+                    }
+
+                    &.active {
+                        background: map-deep-get($theme, "table", "active");
+                    }
+
+                    &:hover:not(.o-table__expanded__content):not(.o-table__empty-wrapper) {
+                        background: map-deep-get($theme, "table", "hover");
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Block
+.o-table {
+    // Do not inherit line-height
+    line-height: 1.5;
+    max-width: 100%;
+
+    > .o-table__wrapper {
+        > table {
+            width: 100%;
+            border-spacing: 0;
+            > tbody,
+            > thead,
+            > tfoot {
+                > tr {
+                    > td,
+                    > th {
+                        padding: 0 16px;
+                        transition: height $secondary-transition;
+                    }
+
+                    > th {
+                        user-select: none;
+                        font-size: $table-regular-header-font-size;
+                        height: $table-regular-header-height;
+
+                        @include ltr() {
+                            text-align: left;
+                        }
+
+                        @include rtl() {
+                            text-align: right;
+                        }
+                    }
+
+                    > td {
+                        font-size: $table-regular-row-font-size;
+                        height: $table-regular-row-height;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Elements
+.o-table__wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.o-table__progress {
+    height: auto !important;
+
+    th {
+        height: auto !important;
+        border: none !important;
+        padding: 0;
+        position: relative;
+    }
+}
+
+// Modifiers
+.o-table--dense {
+    > .o-table__wrapper {
+        > table {
+            > tbody,
+            > thead,
+            > tfoot {
+                > tr {
+                    > td {
+                        height: $table-dense-row-height;
+                    }
+                    > th {
+                        height: $table-dense-header-height;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.o-table--has-top {
+    > .o-table__wrapper {
+        > table {
+            > tbody {
+                > tr {
+                    &:first-child {
+                        &:hover {
+                            > td {
+                                &:first-child {
+                                    border-top-left-radius: 0;
+                                }
+
+                                &:last-child {
+                                    border-top-right-radius: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.o-table--has-bottom {
+    > .o-table__wrapper {
+        > table {
+            > tbody {
+                > tr {
+                    &:last-child {
+                        &:hover {
+                            > td {
+                                &:first-child {
+                                    border-bottom-left-radius: 0;
+                                }
+
+                                &:last-child {
+                                    border-bottom-right-radius: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.o-table--fixed-height {
+    .o-table__wrapper {
+        overflow-y: auto;
+    }
+}
+
+.o-table--fixed-header {
+    > .o-table__wrapper {
+        overflow-y: auto;
+
+        > table {
+            > thead {
+                > tr {
+                    > th {
+                        border-bottom: 0px !important;
+                        position: sticky;
+                        top: 0;
+                        z-index: 2;
+                    }
+                }
+
+                > tr:nth-child(2) {
+                    > th {
+                        top: $table-regular-header-height;
+                    }
+                }
+            }
+        }
+    }
+
+    // Account for scroll bar
+    .o-table-footer {
+        @include ltr() {
+            margin-right: $table-scroll-bar-width;
+        }
+
+        @include rtl() {
+            margin-left: $table-scroll-bar-width;
+        }
+    }
+}
+
+.o-table--fixed-header.o-table--dense {
+    > .o-table__wrapper {
+        > table {
+            > thead {
+                > tr:nth-child(2) {
+                    > th {
+                        top: $table-dense-header-height;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,191 @@
+@import "./_variables.scss";
+
+// Theme
+@include theme(o-card) using ($theme) {
+    background-color: map-get($theme, "cards");
+    color: map-deep-get($theme, "text", "primary");
+
+    > .o-card__text,
+    .o-card__subtitle {
+        color: map-deep-get($theme, "text", "secondary");
+    }
+}
+
+// Sheet
+@include sheet(o-card, $card-elevation, $card-border-radius, $card-shaped-border-radius);
+
+// Block
+.o-card {
+    border-width: $card-outlined-border-width;
+    display: block;
+    max-width: 100%;
+    outline: none;
+    text-decoration: none;
+    transition-property: box-shadow, opacity;
+    overflow-wrap: $card-overflow-wrap;
+    position: relative;
+    white-space: $card-white-space;
+
+    > *:first-child:not(.o-btn):not(.o-chip),
+    > .o-card__progress + *:not(.o-btn):not(.o-chip) {
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
+    }
+
+    > *:last-child:not(.o-btn):not(.o-chip) {
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
+    }
+}
+
+// Element
+.o-card__progress {
+    top: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+
+.o-card__subtitle {
+    + .o-card__text {
+        padding-top: $card-adjacent-sibling-text-padding-top;
+    }
+}
+
+.o-card__subtitle,
+.o-card__text {
+    font-size: $card-text-font-size;
+    font-weight: $card-text-font-weight;
+    line-height: $card-text-line-height;
+    letter-spacing: $card-text-letter-spacing;
+}
+
+.o-card__subtitle,
+.o-card__text,
+.o-card__title {
+    padding: $card-subtitle-padding;
+}
+
+.o-card__title {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: $card-title-font-size;
+    font-weight: $card-title-font-weight;
+    letter-spacing: $card-title-letter-spacing;
+    line-height: $card-title-line-height;
+    word-break: $card-title-word-break;
+
+    + .o-card__subtitle,
+    + .o-card__text {
+        padding-top: $card-adjacent-sibling-text-padding-top;
+    }
+
+    + .o-card__subtitle {
+        margin-top: $card-title-adjacent-sibling-subtitle-margin-top;
+    }
+}
+
+.o-card__text {
+    width: 100%;
+}
+
+.o-card__actions {
+    align-items: center;
+    display: flex;
+    padding: $card-actions-padding;
+
+    > .o-btn.o-btn {
+        padding: $card-btn-padding;
+
+        // Buttons have reduced padding in card actions per spec
+        // and need to compensate the icon margins accordingly
+        @include ltr() {
+            + .o-btn {
+                margin-left: $card-btn-margin-x;
+            }
+
+            .o-icon--left {
+                margin-left: $card-btn-small-margin-x;
+            }
+
+            .o-icon--right {
+                margin-right: $card-btn-small-margin-x;
+            }
+        }
+
+        @include rtl() {
+            + .o-btn {
+                margin-right: $card-btn-margin-x;
+            }
+
+            .o-icon--left {
+                margin-right: $card-btn-small-margin-x;
+            }
+
+            .o-icon--right {
+                margin-left: $card-btn-small-margin-x;
+            }
+        }
+    }
+}
+
+// @deprecated
+// TODO: Remove in v3
+.o-card--flat {
+    @include elevation(0, true);
+}
+
+.o-sheet.o-card--hover {
+    cursor: pointer;
+    transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &:hover,
+    &:focus {
+        @include elevation($card-hover-elevation);
+    }
+}
+
+.o-card--link {
+    cursor: pointer;
+
+    // https://github.com/vuetifyjs/vuetify/issues/3925
+    .o-chip {
+        cursor: pointer;
+    }
+
+    &:focus:before {
+        opacity: $card-link-focus-opacity;
+    }
+
+    &:before {
+        background: currentColor;
+        bottom: 0;
+        content: "";
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: 0.2s opacity map-get($transition, "fast-in-slow-out");
+    }
+}
+
+.o-card--disabled {
+    pointer-events: none;
+    user-select: none;
+
+    > *:not(.o-card__progress) {
+        opacity: $card-disabled-opacity;
+        transition: inherit;
+    }
+}
+
+.o-card--loading {
+    overflow: hidden;
+}
+
+.o-card--raised {
+    @include elevation($card-raised-elevation);
+}

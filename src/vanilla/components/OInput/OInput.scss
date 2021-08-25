@@ -1,0 +1,189 @@
+@import "./_variables";
+
+/* Theme */
+@include theme(o-input) using ($theme) {
+    color: map-deep-get($theme, "text", "primary");
+
+    input,
+    textarea {
+        color: map-deep-get($theme, "text", "primary");
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: map-deep-get($theme, "text", "disabled");
+    }
+
+    &--is-disabled {
+        color: map-deep-get($theme, "text", "disabled");
+
+        input,
+        textarea {
+            color: map-deep-get($theme, "text", "disabled");
+        }
+    }
+}
+.o-input {
+    display: flex;
+    align-items: flex-start;
+    flex: 1 1 auto;
+    font-size: $input-font-size;
+    letter-spacing: $input-letter-spacing;
+    max-width: 100%;
+    text-align: $input-text-align;
+
+    .o-progress-linear {
+        top: calc(100% - 1px);
+        left: 0;
+    }
+
+    input {
+        max-height: $input-max-height;
+    }
+
+    input,
+    textarea {
+        // Remove Firefox red outline
+        &:invalid {
+            box-shadow: none;
+        }
+
+        &:focus,
+        &:active {
+            outline: none;
+        }
+    }
+
+    .o-label {
+        height: $input-label-height;
+        line-height: $input-label-height;
+        letter-spacing: $input-label-letter-spacing;
+    }
+
+    &__append-inner,
+    &__prepend-inner,
+    &__append-outer,
+    &__prepend-outer {
+        display: inline-flex;
+        margin-bottom: 5px;
+        margin-top: 5px;
+        line-height: 1;
+
+        .o-icon {
+            user-select: none;
+        }
+    }
+
+    &__append-inner {
+        @include ltr() {
+            margin-right: $input-prepend-append-margin;
+        }
+
+        @include rtl() {
+            margin-left: $input-prepend-append-margin;
+        }
+    }
+
+    &__prepend-inner {
+        @include ltr() {
+            margin-right: $input-prepend-append-margin;
+        }
+
+        @include rtl() {
+            margin-left: $input-prepend-append-margin;
+        }
+    }
+
+    &__append-outer {
+        @include ltr() {
+            margin-left: $input-prepend-append-margin;
+        }
+
+        @include rtl() {
+            margin-right: $input-prepend-append-margin;
+        }
+    }
+
+    &__prepend-outer {
+        @include ltr() {
+            margin-right: $input-prepend-append-margin;
+        }
+
+        @include rtl() {
+            margin-left: $input-prepend-append-margin;
+        }
+    }
+
+    &__control {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        flex-grow: 1;
+        flex-wrap: wrap;
+        min-width: 0;
+        width: 100%; // For IE11
+    }
+
+    &__icon {
+        align-items: center;
+        display: inline-flex;
+        width: $input-icon-width;
+        height: $input-icon-height;
+        min-width: $input-icon-min-width;
+        flex: 1 0 auto;
+        justify-content: center;
+
+        &--clear {
+            margin-right: 8px;
+            border-radius: 50%;
+
+            .o-icon--disabled {
+                visibility: hidden;
+            }
+        }
+    }
+
+    &__slot {
+        width: 100%;
+        align-items: center;
+        color: inherit;
+        display: flex;
+        margin-bottom: $input-slot-margin-bottom;
+        min-height: inherit;
+        position: relative;
+        transition: $primary-transition;
+
+        input, textarea {
+            width: 100%;
+            padding: 4px 11px;
+            line-height: 1.5715;
+        }
+    }
+
+    &--is-disabled:not(.o-input--is-readonly) {
+        pointer-events: none;
+    }
+
+    &--is-loading > .o-input__control > .o-input__slot {
+        &:before,
+        &:after {
+            display: none;
+        }
+    }
+
+    &--has-state {
+        &.error--text .o-label {
+            animation: o-shake 0.6s map-get($transition, "swing");
+        }
+    }
+
+    &--hide-details > .o-input__control > .o-input__slot {
+        margin-bottom: 0;
+    }
+}
+
+.o-input--is-disabled .o-input__slot {
+    color: rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+    opacity: 1;
+}

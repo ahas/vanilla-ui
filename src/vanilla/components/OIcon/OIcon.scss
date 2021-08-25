@@ -1,0 +1,87 @@
+@import "./_variables";
+
+// Theme
+@include theme(o-icon) using ($theme) {
+    color: map-deep-get($theme, "icons", "active");
+
+    &:focus::after {
+        opacity: map-deep-get($theme, "states", "focus");
+    }
+
+    &.o-icon.o-icon--disabled {
+        color: map-deep-get($theme, "icons", "inactive") !important    ;
+    }
+}
+
+// Increased specificity to overwrite
+// iconfont css interference
+.o-icon.o-icon {
+    align-items: center;
+    display: inline-flex;
+    font-feature-settings: "liga";
+    font-size: $icon-size;
+    justify-content: center;
+    letter-spacing: normal;
+    line-height: 1;
+    position: relative;
+    text-indent: 0;
+    transition: $primary-transition, visibility 0s;
+    vertical-align: middle;
+    user-select: none;
+
+    &::after {
+        background-color: currentColor;
+        border-radius: 50%;
+        content: "";
+        display: inline-block;
+        height: 100%;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        transform: scale(1.3);
+        width: 100%;
+        transition: opacity 0.2s map-get($transition, "ease-in-out");
+    }
+
+    &--dense {
+        font-size: $icon-size-dense;
+    }
+}
+
+.o-icon {
+    &--right {
+        margin-left: map-get($grid-gutters, "md");
+    }
+    &--left {
+        margin-right: map-get($grid-gutters, "md");
+    }
+
+    &.o-icon.o-icon--link {
+        cursor: pointer;
+        outline: none;
+    }
+
+    &--disabled {
+        pointer-events: none;
+    }
+
+    &--dense {
+        &__component,
+        &__svg {
+            height: $icon-size-dense;
+        }
+    }
+
+    &__component {
+        height: $icon-size;
+        width: $icon-size;
+    }
+
+    &__svg {
+        height: $icon-size;
+        width: $icon-size;
+        fill: currentColor;
+    }
+}

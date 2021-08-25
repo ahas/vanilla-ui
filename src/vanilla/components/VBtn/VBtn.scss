@@ -1,0 +1,218 @@
+@use "sass:math";
+@import "./_variables";
+
+.v-btn:not(.v-btn--outlined, .v-btn--dashed) {
+    &.primary,
+    &.secondary,
+    &.accent,
+    &.success,
+    &.error,
+    &.danger,
+    &.warning,
+    &.info {
+        color: map-deep-get($theme-dark, "text", "primary");
+    }
+}
+
+@include theme(v-btn) using ($theme) {
+    color: map-deep-get($theme, "text", "primary");
+
+    &.v-btn--disabled {
+        color: map-deep-get($theme, "buttons", "disabled") !important;
+
+        .v-icon,
+        .v-btn__loading {
+            color: map-deep-get($theme, "buttons", "disabled") !important;
+        }
+
+        &.v-btn--has-bg {
+            background-color: map-deep-get($theme, "buttons", "focused") !important;
+        }
+    }
+
+    &.v-btn--has-bg {
+        background-color: map-get($theme, "app-bar");
+    }
+
+    &.v-btn--outlined.v-btn--text {
+        border-color: map-get($theme, "dividers");
+    }
+
+    &.v-btn--icon {
+        color: map-deep-get($theme, "icons", "active");
+    }
+
+    @include states(map-deep-merge($theme, $btn-states));
+}
+
+.v-btn {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    border: 0;
+    border-radius: $btn-border-radius;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    transition: all 0.3s;
+    outline: 0;
+
+    &:before {
+        content: "";
+        background-color: currentColor;
+        border-radius: inherit;
+        bottom: 0;
+        color: inherit;
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: $btn-transition;
+    }
+
+    &:not(.v-btn--round, .v-btn--square) {
+        @each $name, $size in $btn-sizes {
+            &.v-size--#{$name} {
+                height: #{$size}px;
+                min-width: #{round($size * 1.777777777777778)}px; // default ratio
+                padding: 0 #{math.div($size, 2.25)}px;
+            }
+        }
+    }
+    &--block {
+        display: flex;
+        flex: 1 0 auto;
+        min-width: 100% !important;
+        max-width: auto;
+        padding: 0 !important;
+    }
+
+    &--loading {
+        pointer-events: none;
+        transition: none;
+
+        .v-btn__content {
+            opacity: 0;
+        }
+    }
+
+    &--text,
+    &--outlined,
+    &--dashed {
+        background-color: transparent;
+    }
+
+    &--outlined,
+    &--dashed {
+        border: $btn-outline-border-width solid currentColor;
+    }
+
+    &--dashed {
+        border-style: dashed;
+    }
+
+    &--disabled {
+        cursor: not-allowed !important;
+        text-shadow: none;
+    }
+
+    &--tile {
+        border-radius: 0;
+    }
+
+    &--round {
+        @include radius(50%);
+    }
+
+    &--icon {
+        min-height: 0;
+        min-width: 0;
+        padding: 0;
+
+        @each $name, $size in $icon-sizes {
+            &.v-size--#{$name} {
+                .v-icon {
+                    height: #{$size}px;
+                    font-size: #{$size}px;
+                    width: #{$size}px;
+                }
+            }
+        }
+
+        @each $name, $size in $btn-sizes {
+            &.v-size--#{$name} {
+                height: #{$size}px;
+                width: #{$size}px;
+            }
+        }
+    }
+
+    &--square {
+        min-width: $btn-square-min-width;
+        min-height: $btn-square-min-height;
+        padding: $btn-squire-padding;
+    }
+
+    > .v-btn__content {
+        align-items: center;
+        color: inherit;
+        display: flex;
+        flex: 1 0 auto;
+        justify-content: inherit;
+        line-height: 1.499;
+        position: relative;
+        transition: inherit;
+        transition-property: opacity;
+
+        .v-icon.v-icon--left,
+        .v-icon.v-icon--right {
+            font-size: $btn-icon-font-size;
+            height: $btn-icon-font-size;
+            width: $btn-icon-font-size;
+        }
+
+        .v-icon--left {
+            @include ltr() {
+                margin-left: -4px;
+                margin-right: 8px;
+            }
+
+            @include rtl() {
+                margin-left: 8px;
+                margin-right: -4px;
+            }
+        }
+
+        .v-icon--right {
+            @include ltr() {
+                margin-left: 8px;
+                margin-right: -4px;
+            }
+
+            @include rtl() {
+                margin-left: -4px;
+                margin-right: 8px;
+            }
+        }
+    }
+
+    > .v-btn__loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}

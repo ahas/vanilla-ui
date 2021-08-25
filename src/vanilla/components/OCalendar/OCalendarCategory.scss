@@ -1,0 +1,35 @@
+@import "./_variables.scss";
+
+// Theme
+@include theme(o-calendar-category) using ($theme) {
+    .o-calendar-category__column,
+    .o-calendar-category__column-header {
+        border-right: map-deep-get($theme, "calendar", "line-color") $calendar-line-width solid;
+    }
+}
+
+.o-calendar-category {
+    .o-calendar-category__category {
+        text-align: center;
+    }
+
+    .o-calendar-daily__day-container {
+        .o-calendar-category__columns {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+        }
+    }
+
+    .o-calendar-category__columns {
+        display: flex;
+
+        .o-calendar-category__column,
+        .o-calendar-category__column-header {
+            flex: 1 1 auto;
+            width: 0;
+            position: relative;
+        }
+    }
+}

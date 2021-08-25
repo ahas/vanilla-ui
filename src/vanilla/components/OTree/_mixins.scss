@@ -1,0 +1,24 @@
+@mixin tree-shaped($size, $margin) {
+    .o-tree-node__root,
+    .o-tree-node__root:before {
+        border-bottom-right-radius: #{$size * 0.5} !important;
+        border-top-right-radius: #{$size * 0.5} !important;
+    }
+
+    .o-tree-node__root {
+        margin-top: $margin;
+        margin-bottom: $margin;
+    }
+}
+
+@mixin tree-rounded($size, $margin) {
+    .o-tree-node__root,
+    .o-tree-node__root:before {
+        border-radius: #{$size * 0.5} !important;
+    }
+
+    .o-tree-node__root {
+        margin-top: $margin;
+        margin-bottom: $margin;
+    }
+}

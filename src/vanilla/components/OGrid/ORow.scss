@@ -1,0 +1,68 @@
+@use 'sass:math';
+@import "./_variables";
+
+@mixin make-row($gutter: $grid-gutter) {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+}
+
+.row {
+    @include make-row();
+
+    & + .row {
+        margin-top: math.div($grid-gutter, 2);
+
+        &--dense {
+            margin-top: math.div($form-grid-gutter, 2);
+        }
+    }
+
+    &--dense {
+        margin: -(math.div($form-grid-gutter, 2));
+
+        > .col,
+        > [class*="col-"] {
+            padding: math.div($form-grid-gutter, 2);
+        }
+    }
+
+    &--stretch {
+        height: 100%;
+    }
+}
+
+.row--no-gutters {
+    margin: 0;
+    > .item,
+    > [class*="col-"] {
+        padding: 0;
+    }
+}
+
+@for $i from 1 through $grid-items {
+    .row.space-#{$i} {
+        &:not(.flex-column),
+        &.flex-row {
+            > .col:not(:last-child) {
+                padding-right: #{$spacer * $i};
+            }
+            &.flex-reverse {
+                > .col:not(:last-child) {
+                    padding-left: #{$spacer * $i};
+                }
+            }
+        }
+
+        &.flex-column {
+            > .col:not(:last-child) {
+                padding-bottom: #{$spacer * $i};
+            }
+            &.flex-reverse {
+                > .col:not(:last-child) {
+                    padding-top: #{$spacer * $i};
+                }
+            }
+        }
+    }
+}

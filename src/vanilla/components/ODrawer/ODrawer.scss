@@ -1,0 +1,160 @@
+@import "./variables";
+
+// Theme
+@include theme(o-drawer) using ($theme) {
+    background-color: map-get($theme, "drawer");
+
+    &:not(.o-drawer--floating) {
+        .o-drawer__border {
+            background-color: map-get($theme, "dividers");
+        }
+    }
+
+    .o-divider {
+        border-color: map-get($theme, "dividers");
+    }
+}
+
+// Block
+.o-drawer {
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    pointer-events: auto;
+    top: 0;
+    transition-duration: 0.2s;
+    transition-timing-function: map-get($transition, "fast-out-slow-in");
+    will-change: transform;
+    transition-property: transform, visibility, width;
+    @include bootable();
+
+    &.o-drawer--right {
+        &:after {
+            left: 0;
+            right: initial;
+        }
+    }
+
+    .o-list:not(.o-select-list) {
+        background: inherit;
+    }
+}
+
+// Element
+.o-drawer__border {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: $drawer-border-width;
+}
+
+.o-drawer__content {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.o-drawer__image {
+    border-radius: inherit;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    contain: strict;
+    width: 100%;
+
+    .o-image {
+        border-radius: inherit;
+    }
+}
+
+// Modifier
+.o-drawer--bottom.o-drawer--is-mobile {
+    max-height: 50%;
+    top: auto;
+    bottom: 0;
+    min-width: 100%;
+}
+
+.o-drawer--right {
+    left: auto;
+    right: 0;
+
+    > .o-drawer__border {
+        right: auto;
+        left: 0;
+    }
+}
+
+.o-drawer--absolute {
+    z-index: 1;
+}
+
+.o-drawer--fixed {
+    z-index: 6;
+}
+
+.o-drawer--absolute {
+    position: absolute;
+}
+
+.o-drawer--clipped:not(.o-drawer--temporary):not(.o-drawer--is-mobile) {
+    z-index: 4;
+}
+
+.o-drawer--fixed {
+    position: fixed;
+}
+
+.o-drawer--floating:after {
+    display: none;
+}
+
+.o-drawer--mini-variant {
+    overflow: hidden;
+    .o-list-item {
+        > *:first-child {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        > *:not(:first-child) {
+            @include visually-hidden;
+        }
+    }
+
+    .o-list-group--no-action .o-list-group__items,
+    .o-list-group--sub-group {
+        display: none;
+    }
+
+    &.o-drawer--custom-mini-variant {
+        .o-list-item {
+            justify-content: center;
+        }
+    }
+}
+
+.o-drawer--temporary {
+    z-index: 7;
+}
+
+.o-drawer--mobile {
+    z-index: 6;
+}
+
+.o-drawer--close {
+    visibility: hidden;
+}
+
+.o-drawer--is-mobile,
+.o-drawer--temporary {
+    &:not(.o-drawer--close) {
+        @include elevation($drawer-mobile-temporary-elevation);
+    }
+}

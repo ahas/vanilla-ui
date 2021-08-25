@@ -1,0 +1,59 @@
+.box-border {box-sizing: border-box; }
+.box-content { box-sizing: content-box; }
+
+.fill-width {
+    width: 100% !important;
+}
+
+.fill-height {
+    height: 100% !important;
+}
+
+
+.size-a4 {
+	width: 210mm !important;
+	height: 297mm !important;
+}
+
+@for $i from 1 through 20 {
+	$val: $i * 5;
+	.width-#{$val} {
+		width: #{$val + '%'} !important;
+		min-width: #{$val + '%'} !important;
+	}
+
+    .width-#{$val}px {
+		width: #{$val + 'px'} !important;
+		min-width: #{$val + 'px'} !important;
+	}
+
+	.height-#{$val} {
+		height: #{$val + '%'} !important;
+		min-height: #{$val + '%'} !important;
+	}
+
+    .height-#{$val}px {
+		height: #{$val + 'px'} !important;
+		min-height: #{$val + 'px'} !important;
+	}
+}
+
+.width-33 {
+	width: 33% !important;
+	min-width: 33% !important;
+}
+
+.width-66 {
+	width: 66% !important;
+	min-width: 66% !important;
+}
+
+.height-33 {
+	height: 33% !important;
+	min-height: 33% !important;
+}
+
+.height-66 {
+	height: 66% !important;
+	min-height: 66% !important;
+}

@@ -1,0 +1,31 @@
+@import "../styles";
+
+// Extra small	xs	Small to large phone	*         < 600px
+// Small	    sm	Small to medium tablet	600px   > < 960px
+// Medium	    md	Large tablet to laptop	960px   > < 1264px
+// Large	    lg	Desktop	                1264px  > < 1904px
+// Extra large	xl	4k and ultra-wide	    *       >   1904px
+
+$props: none inline inline-block block table table-row table-cell flex inline-flex;
+
+.o-app {
+    @each $size, $media_query in $display-breakpoints {
+        .hidden {
+            &-#{$size} {
+                @media #{$media_query} {
+                    display: none !important;
+                }
+            }
+        }
+    }
+}
+
+.d-print-page {
+    display: none;
+}
+
+@each $prop in $props {
+    .d-#{$prop} {
+        display: $prop;
+    }
+}

@@ -1,0 +1,17 @@
+@import "./_variables";
+
+// Theme
+@include theme(o-label) using ($theme) {
+    color: map-deep-get($theme, "text", "secondary");
+
+    &--is-disabled {
+        color: map-deep-get($theme, "text", "disabled");
+    }
+}
+
+.o-label {
+    font-size: $label-font-size;
+    line-height: $label-line-height;
+    min-height: $label-min-height;
+    transition: 0.3s map-get($transition, "swing");
+}

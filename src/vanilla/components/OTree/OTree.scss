@@ -1,0 +1,185 @@
+@import "./mixins";
+@import "./variables";
+
+// Theme
+@include theme(o-tree) using ($theme) {
+    color: map-deep-get($theme, "text", "primary");
+
+    &--hoverable .o-tree-node__root,
+    .o-tree-node--click > .o-tree-node__root {
+        @include states($theme);
+    }
+
+    .o-tree-node__root.o-tree-node--active {
+        @include active-states($theme);
+    }
+
+    .o-tree-node--disabled {
+        > .o-tree-node__root > .o-tree-node__content {
+            color: map-deep-get($theme, "text", "disabled") !important;
+        }
+    }
+}
+
+.o-tree-node {
+    &.o-tree-node--shaped {
+        @include tree-shaped($tree-node-height, $tree-node-shaped-margin);
+    }
+
+    &.o-tree-node--rounded {
+        @include tree-rounded($tree-node-height, $tree-node-shaped-margin);
+    }
+
+    &--click {
+        > .o-tree-node__root,
+        > .o-tree-node__root > .o-tree-node__content > * {
+            cursor: pointer;
+            user-select: none;
+        }
+    }
+
+    &.o-tree-node--active .o-tree-node__content .o-icon {
+        color: inherit;
+    }
+}
+
+.o-tree-node__root {
+    display: flex;
+    align-items: center;
+    min-height: $tree-node-height;
+    padding-left: $tree-node-padding;
+    padding-right: $tree-node-padding;
+    position: relative;
+
+    &::before {
+        background-color: currentColor;
+        bottom: 0;
+        content: "";
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: $primary-transition;
+    }
+
+    // Fix for IE11 where min-height does not work with
+    // align-items: center in flex containers
+    // https://github.com/philipwalton/flexbugs/issues/231
+    &::after {
+        content: "";
+        font-size: 0;
+        min-height: inherit;
+    }
+}
+
+.o-tree-node__children {
+    transition: all $tree-transition;
+}
+
+.o-tree--dense {
+    .o-tree-node__root {
+        min-height: $tree-node-height-dense;
+    }
+
+    &.o-tree-node--shaped {
+        @include tree-shaped($tree-node-height-dense, $tree-node-shaped-margin);
+    }
+
+    &.o-tree-node--rounded {
+        @include tree-rounded($tree-node-height-dense, $tree-node-shaped-margin);
+    }
+}
+
+.o-tree-node__checkbox {
+    width: $tree-node-level-width;
+    user-select: none;
+
+    @include ltr() {
+        margin-left: $tree-node-margin;
+    }
+
+    @include rtl() {
+        margin-right: $tree-node-margin;
+    }
+}
+
+.o-tree-node__toggle {
+    width: $tree-node-level-width;
+    user-select: none;
+
+    &--loading {
+        animation: progress-circular-rotate 1s linear infinite;
+    }
+
+    @include ltr() {
+        transform: rotate(-90deg);
+        &--open {
+            transform: none;
+        }
+    }
+
+    @include rtl() {
+        transform: rotate(90deg);
+        &--open {
+            transform: none;
+        }
+    }
+}
+
+.o-tree-node__prepend {
+    min-width: $tree-node-level-width;
+
+    @include ltr() {
+        margin-right: $tree-node-margin;
+    }
+    @include rtl() {
+        margin-left: $tree-node-margin;
+    }
+}
+
+.o-tree-node__append {
+    min-width: $tree-node-level-width;
+
+    @include ltr() {
+        margin-left: $tree-node-margin;
+    }
+    @include rtl() {
+        margin-right: $tree-node-margin;
+    }
+}
+
+.o-tree-node__level {
+    width: $tree-node-level-width;
+}
+
+.o-tree-node__label {
+    flex: 1;
+    font-size: $tree-label-font-size;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.o-tree-node__content {
+    align-items: center;
+    display: flex;
+    flex-basis: 0%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    min-width: 0;
+
+    // TODO: this is temporary fix for d-flex * shenanigans
+    .o-btn {
+        flex-grow: 0 !important;
+        flex-shrink: 1 !important;
+    }
+
+    @include ltr() {
+        margin-left: $tree-node-margin;
+    }
+    @include rtl() {
+        margin-right: $tree-node-margin;
+    }
+}

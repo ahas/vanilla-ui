@@ -1,0 +1,27 @@
+@import '../../styles/styles';
+
+$steps-alt-labels-flex-basis : 175px !default;
+$steps-alt-labels-header-divider: 35px -67px 0 !default;
+$steps-alt-labels-step-margin-bottom: 11px !default;
+$steps-border-radius: $border-radius-root !default;
+$steps-content-btn-margin: 24px 8px 8px 0 !default;
+$steps-content-padding: 24px 24px 16px 24px !default;
+$steps-header-divider-margin: 0 -16px !default;
+$steps-header-height: 72px !default;
+$steps-label-line-height: 1 !default;
+$steps-label-small-font-size: map-deep-get($headings, 'caption', 'size') !default;
+$steps-label-small-font-weight: 300 !default;
+$step-error-icon-font-size: map-deep-get($headings, 'h5', 'size')  !default;
+$step-padding: 24px !default;
+$step-font-size: map-deep-get($headings, 'caption', 'size') !default;
+$step-height: 24px !default;
+$step-icon-font-size: map-deep-get($headings, 'h6', 'size') !default;
+$step-margin: 8px !default;
+$step-min-width: 24px !default;
+$step-width: 24px !default;
+$steps-vertical-content-ltr-margin: -8px -36px -16px 36px !default;
+$steps-vertical-content-rtl-margin: -8px 36px -16px -36px !default;
+$steps-vertical-content-padding: 16px 60px 16px 23px !default;
+$steps-vertical-padding-bottom: 36px !default;
+$steps-vertical-step-padding: 24px 24px 16px !default;
+$steps-vertical-step-margin: 12px !default;

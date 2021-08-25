@@ -1,0 +1,39 @@
+$overflows: visible, hidden, clip, scroll, auto;
+$white_spaces: normal, nowrap, pre, pre-wrap, pre-line, break-spaces;
+$overflow_wraps: normal, anywhere, break-word;
+
+@each $overflow in $overflows {
+    .overflow-#{$overflow} {
+        overflow: $overflow;
+    }
+    .overflow-x-#{$overflow} {
+        overflow-x: $overflow;
+    }
+    .overflow-y-#{$overflow} {
+        overflow-y: $overflow;
+    }
+}
+
+@each $white_space in $white_spaces {
+    .white-space-#{$white_space} {
+        white-space: $white_space;
+    }
+}
+
+@each $overflow_wrap in $overflow_wraps {
+    .wrap-#{$overflow_wrap} {
+        overflow-wrap: $overflow_wrap;
+    }
+}
+
+.visible {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.collapse {
+    visibility: collapse;
+}

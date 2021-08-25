@@ -1,0 +1,39 @@
+$positions: static, relative, absolute, fixed, sticky;
+$directions: top, right, bottom, left;
+
+@each $position in $positions {
+    .p-#{$position} {
+        position: $position;
+    }
+}
+
+.p-stretch {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.p-stretch-x {
+    left: 0;
+    right: 0;
+}
+
+.p-stretch-y {
+    top: 0;
+    bottom: 0;
+}
+
+@each $direction in $directions {
+    .p-#{$direction} {
+        $direction: 0;
+    }
+}
+
+@for $size from 1 through 16 {
+    @each $direction in $directions {
+        .p-#{$direction}-#{$size} {
+            $direction: $size * 4;
+        }
+    }    
+}

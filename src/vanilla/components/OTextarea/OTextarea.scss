@@ -1,0 +1,94 @@
+@import "./_variables.scss";
+
+.o-textarea {
+    textarea {
+        align-self: stretch;
+        flex: 1 1 auto;
+        line-height: $textarea-line-height;
+        max-width: 100%;
+        min-height: $textarea-min-height;
+        outline: none;
+        width: 100%;
+    }
+
+    .o-text-field__prefix,
+    .o-text-field__suffix {
+        padding-top: $textarea-prefix-padding-top;
+        align-self: start;
+    }
+
+    &.o-text-field--box,
+    &.o-text-field--enclosed {
+        .o-text-field__prefix,
+        textarea {
+            margin-top: $textarea-box-enclosed-prefix-margin-top;
+        }
+
+        &.o-text-field--single-line,
+        &.o-text-field--outlined {
+            &:not(.o-input--dense) {
+                .o-text-field__prefix,
+                .o-text-field__suffix,
+                textarea {
+                    margin-top: $textarea-box-enclosed-single-outlined-margin-top;
+                }
+
+                .o-label {
+                    top: $textarea-box-enclosed-single-outlined-label-top;
+                }
+            }
+
+            &.o-input--dense {
+                .o-text-field__prefix,
+                .o-text-field__suffix,
+                textarea {
+                    margin-top: $textarea-dense-box-enclosed-single-outlined-margin-top;
+                }
+
+                .o-input__prepend-inner,
+                .o-input__prepend-outer,
+                .o-input__append-inner,
+                .o-input__append-outer {
+                    align-self: flex-start;
+                    margin-top: $textarea-dense-append-prepend-margin-top;
+                }
+            }
+        }
+    }
+
+    &--auto-grow {
+        textarea {
+            overflow: hidden;
+        }
+    }
+
+    &--no-resize {
+        textarea {
+            resize: none;
+        }
+    }
+
+    &.o-text-field--enclosed {
+        .o-text-field__slot {
+            align-self: stretch;
+
+            @include ltr() {
+                margin-right: $textarea-enclosed-text-slot-margin;
+            }
+
+            @include rtl() {
+                margin-left: $textarea-enclosed-text-slot-margin;
+            }
+
+            textarea {
+                @include ltr() {
+                    padding-right: $textarea-enclosed-text-slot-padding;
+                }
+
+                @include rtl() {
+                    padding-left: $textarea-enclosed-text-slot-padding;
+                }
+            }
+        }
+    }
+}

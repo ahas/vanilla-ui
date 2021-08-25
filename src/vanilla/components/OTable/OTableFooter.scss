@@ -1,0 +1,50 @@
+@import "./_variables.scss";
+
+// Block
+.o-table-footer {
+    font-size: $table-footer-font-size;
+    padding: $table-footer-padding;
+}
+
+.o-table-footer__pagination {
+    display: block;
+    text-align: center;
+}
+
+.o-table-footer__select {
+    display: flex;
+    align-items: center;
+    flex: 0 0 0;
+    justify-content: flex-end;
+    white-space: nowrap;
+
+    @include ltr() {
+        margin-right: $table-footer-select-margin-end;
+    }
+
+    @include rtl() {
+        margin-left: $table-footer-select-margin-end;
+    }
+
+    .o-select {
+        flex: 0 1 0;
+        padding: 0;
+        position: initial;
+
+        @include ltr() {
+            margin: $table-footer-select-select-margin-y 0 $table-footer-select-select-margin-y $table-footer-select-select-margin-start;
+        }
+
+        @include rtl() {
+            margin: $table-footer-select-select-margin-y $table-footer-select-select-margin-start $table-footer-select-select-margin-y 0;
+        }
+    }
+
+    .o-select__selections {
+        flex-wrap: nowrap;
+
+        .o-select__selection--comma {
+            font-size: $table-footer-select-selections-comma-font-size;
+        }
+    }
+}

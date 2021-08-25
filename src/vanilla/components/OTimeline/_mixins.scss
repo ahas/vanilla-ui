@@ -1,0 +1,58 @@
+@use 'sass:math';
+
+@mixin timeline-dots($dot-size, $inner-dot-size) {
+    height: $dot-size;
+    left: calc(50% - #{math.div($dot-size, 2)});
+    width: $dot-size;
+
+    .o-timeline-item__inner-dot {
+        height: $inner-dot-size;
+        margin: #{math.div(($dot-size - $inner-dot-size), 2)};
+        width: $inner-dot-size;
+    }
+}
+
+@mixin timeline-wedge-align($direction) {
+    .o-timeline-item__body > .o-card:before,
+    .o-card:after {
+        @include ltr() {
+            transform: rotate(if($direction == right, 180deg, 0));
+            #{$direction}: -($timeline-wedge-size);
+            #{if($direction == left, right, left)}: initial;
+        }
+
+        @include rtl() {
+            transform: rotate(if($direction == right, 0, 180deg));
+            #{$direction}: initial;
+            #{if($direction == left, right, left)}: -($timeline-wedge-size);
+        }
+    }
+}
+
+@mixin timeline-item-align($direction) {
+    flex-direction: if($direction == left, row-reverse, row);
+
+    .o-timeline-item__opposite {
+        @include ltr() {
+            text-align: if($direction == left, right, left);
+        }
+
+        @include rtl() {
+            text-align: if($direction == left, left, right);
+        }
+    }
+}
+
+@mixin timeline-line-align($center, $first, $second) {
+    &:before {
+        @include ltr() {
+            #{$first}: calc(#{$center} - #{math.div($timeline-line-width, 2)});
+            #{$second}: initial;
+        }
+
+        @include rtl() {
+            #{$first}: initial;
+            #{$second}: calc(#{$center} - #{math.div($timeline-line-width, 2)});
+        }
+    }
+}

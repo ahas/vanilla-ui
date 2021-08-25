@@ -1,0 +1,77 @@
+// Imports
+@import "./variables";
+
+// Theme
+@include theme(o-table) using ($theme) {
+    .o-table-header {
+        th.sortable {
+            .o-table-header__icon {
+                color: map-deep-get($theme, "text", "disabled");
+            }
+
+            &:hover,
+            &.active {
+                color: map-deep-get($theme, "text", "primary");
+            }
+
+            &.active {
+                .o-table-header__icon {
+                    color: map-deep-get($theme, "text", "primary");
+                }
+            }
+        }
+
+        &__sort-badge {
+            background-color: map-get($theme, "dividers");
+            color: map-deep-get($theme, "text", "primary");
+        }
+    }
+}
+
+// Block
+.o-table-header {
+    th {
+        background-color: map-get($colors, 'grey', 'lighten-5');
+
+        &.sortable {
+            pointer-events: auto;
+            cursor: pointer;
+            outline: 0;
+            .o-table-header__icon {
+                line-height: 0.9;
+            }
+        }
+
+        &.active,
+        &:hover {
+            .o-table-header__icon {
+                transform: none;
+                opacity: 1;
+            }
+        }
+
+        &.desc {
+            .o-table-header__icon {
+                transform: rotate(-180deg);
+            }
+        }
+    }
+}
+
+.o-table-header__icon {
+    display: inline-block;
+    opacity: 0;
+    transition: 0.3s map-get($transition, "swing");
+}
+
+.o-table-header__sort-badge {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 0px;
+    border-radius: 50%;
+    min-width: $table-header-sort-badge-min-height;
+    min-height: $table-header-sort-badge-min-width;
+    height: $table-header-sort-badge-height;
+    width: $table-header-sort-badge-width;
+}

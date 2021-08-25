@@ -1,0 +1,106 @@
+@import "./_variables.scss";
+
+@include theme(o-date-picker-table) using ($theme) {
+    th,
+    .o-date-picker-table--date__week {
+        color: map-deep-get($theme, "text", "disabled");
+    }
+}
+
+.o-date-picker-table {
+    position: relative;
+    padding: $date-picker-table-padding;
+    height: $date-picker-table-height;
+
+    table {
+        transition: $primary-transition;
+        top: 0;
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    td,
+    th {
+        text-align: center;
+        position: relative;
+    }
+
+    th {
+        font-size: $date-picker-table-font-size;
+    }
+
+    &--date .o-btn {
+        height: $date-picker-table-date-button-height;
+        width: $date-picker-table-date-button-width;
+    }
+
+    .o-btn {
+        z-index: auto;
+        margin: 0;
+        font-size: $date-picker-table-font-size;
+
+        &.o-btn--active {
+            color: $date-picker-table-active-date-color;
+        }
+    }
+}
+
+.o-date-picker-table--month {
+    td {
+        width: 33.333333%;
+        height: $date-picker-table-month-height;
+        vertical-align: middle;
+        text-align: center;
+
+        .o-btn {
+            margin: 0 auto;
+            max-width: $date-picker-table-month-max-width;
+            min-width: $date-picker-table-month-min-width;
+            width: 100%;
+        }
+    }
+}
+
+.o-date-picker-table--date {
+    th {
+        padding: $date-picker-table-date-padding;
+        font-weight: $date-picker-table-date-font-weight;
+    }
+
+    td {
+        width: $date-picker-table-date-width;
+    }
+}
+
+.o-date-picker-table__events {
+    height: $date-picker-event-size;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    white-space: pre;
+    width: 100%;
+
+    > div {
+        border-radius: $date-picker-event-border-radius;
+        display: inline-block;
+        height: $date-picker-event-size;
+        margin: $date-picker-event-margin;
+        width: $date-picker-event-size;
+    }
+}
+
+.o-date-picker-table--date .o-date-picker-table__events {
+    bottom: $date-picker-event-month-bottom;
+}
+
+.o-date-picker-table--month .o-date-picker-table__events {
+    bottom: $date-picker-event-date-bottom;
+}
+
+.o-date-picker-table__current .o-date-picker-table__events {
+    margin-bottom: -1px;
+}
+
+.o-date-picker-table--disabled {
+    pointer-events: none;
+}

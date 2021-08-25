@@ -1,0 +1,51 @@
+@import "./variables";
+@import "../../styles/styles";
+
+.o-input--radio-group {
+    legend.o-label {
+        cursor: text;
+        font-size: 14px;
+        height: auto;
+    }
+
+    &__input {
+        border: none;
+        cursor: default;
+        display: flex;
+        width: 100%;
+    }
+
+    &--column .o-input--radio-group__input > .o-label {
+        padding-bottom: $radio-group-padding;
+    }
+
+    &--row .o-input--radio-group__input > .o-label {
+        padding-right: $radio-group-padding;
+    }
+
+    &--row {
+        legend {
+            align-self: center;
+            display: inline-block;
+        }
+
+        .o-input--radio-group__input {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+    }
+
+    &--column {
+        legend {
+            padding-bottom: $radio-group-padding;
+        }
+
+        .o-radio:not(:last-child):not(:only-child) {
+            margin-bottom: $radio-group-padding;
+        }
+
+        .o-input--radio-group__input {
+            flex-direction: column;
+        }
+    }
+}

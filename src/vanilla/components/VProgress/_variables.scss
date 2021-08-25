@@ -1,0 +1,22 @@
+@import "../../styles/styles";
+
+$progress-circle-rotate-animation: progress-circle-rotate 1.4s linear infinite !default;
+$progress-circle-rotate-dash: progress-circle-dash 1.4s ease-in-out infinite !default;
+$progress-circle-intermediate-svg-transition: all 0.2s ease-in-out !default;
+$progress-circle-underlay-stroke: rgba(map-get($grey, "base"), 0.4) !default;
+$progress-circle-overlay-transition: all 0.6s ease-in-out !default;
+
+$progress-bar-border-radius: $border-radius-root !default;
+$progress-bar-stream-opacity: 0.3 !default;
+$progress-bar-stream-border-width: 4px !default;
+$progress-bar-stripe-gradient: linear-gradient(
+    135deg,
+    hsla(0, 0%, 100%, 0.25) 25%,
+    transparent 0,
+    transparent 50%,
+    hsla(0, 0%, 100%, 0.25) 0,
+    hsla(0, 0%, 100%, 0.25) 75%,
+    transparent 0,
+    transparent
+) !default;
+$progress-bar-stripe-background-size: 40px 40px !default;

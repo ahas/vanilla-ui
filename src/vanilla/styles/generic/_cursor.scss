@@ -1,0 +1,14 @@
+$cursors: auto, default, none,                           // General
+context-menu, help, pointer, progress, wait,             // Links & Status
+cell, crosshair, text, vertical-text,                    // Selection
+alias, copy, move, no-drop, not-allowed, grab, grabbing, // Drag & Drop
+all-scroll, col-resize, row-resize, n-resize, e-resize,
+s-resize, w-resize, ne-resize, nw-resize, se-resize,     // Resizing & Scrolling
+sw-resize, ew-resize, ns-resize, nesw-resize, nwse-resize,
+zoom-in, zoom-out;                                       // Zooming
+
+@each $cursor in $cursors {
+    .cursor-#{$cursor} {
+        cursor: $cursor;
+    }
+}

@@ -1,0 +1,30 @@
+$transition: (
+    "fast-out-slow-in": cubic-bezier(0.4, 0, 0.2, 1),
+    "linear-out-slow-in": cubic-bezier(0, 0, 0.2, 1),
+    "fast-out-linear-in": cubic-bezier(0.4, 0, 1, 1),
+    "ease-in-out": cubic-bezier(0.4, 0, 0.6, 1),
+    "fast-in-fast-out": cubic-bezier(0.25, 0.8, 0.25, 1),
+    "fast-in-slow-out": cubic-bezier(0.2, 0, 0.4, 1),
+    "swing": cubic-bezier(0.25, 0.8, 0.5, 1),
+);
+$primary-transition: 0.3s map-get($transition, "swing") !default;
+$secondary-transition: 0.2s map-get($transition, "ease-in-out") !default;
+
+$ripple-animation-transition-in: transform 0.25s map-get($transition, "fast-in-slow-out"), opacity 0.1s map-get($transition, "fast-in-slow-out") !default;
+$ripple-animation-transition-out: opacity 0.3s map-get($transition, "fast-in-slow-out") !default;
+$ripple-animation-visible-opacity: 0.15 !default;
+
+$ring-animation-transition-in: transform 0.25s map-get($transition, "fast-in-slow-out"), opacity 0.1s map-get($transition, "fast-in-slow-out") !default;
+$ring-animation-transition-out: opacity 0.3s map-get($transition, "fast-in-slow-out") !default;
+$ring-animation-visible-opacity: 0.15 !default;
+
+@mixin transition-default() {
+    &-enter-active,
+    &-leave-active {
+        transition: $primary-transition !important;
+    }
+
+    &-move {
+        transition: transform 0.6s;
+    }
+}

@@ -1,0 +1,215 @@
+// Imports
+@import "./_variables.scss";
+@import "./_mixins.scss";
+
+// Theme
+@include theme(o-timeline) using ($theme) {
+    &::before {
+        background: map-get($theme, "dividers");
+    }
+
+    .o-timeline-item {
+        &__dot {
+            background: map-get($theme, "cards");
+        }
+
+        .o-card {
+            &::before {
+                border-right-color: $shadow-key-ambient-opacity;
+            }
+        }
+    }
+}
+
+// Elements
+.o-timeline {
+    padding-top: $timeline-item-padding;
+    position: relative;
+
+    &:before {
+        content: "";
+        bottom: 0;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        width: $timeline-line-width;
+    }
+}
+
+.o-timeline-item {
+    display: flex;
+    padding-bottom: $timeline-item-padding;
+}
+
+.o-timeline-item__body {
+    position: relative;
+    height: 100%;
+    flex: 1 1 auto;
+}
+
+.o-timeline-item__divider {
+    position: relative;
+    min-width: $timeline-divider-width;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.o-timeline-item__dot {
+    z-index: 2;
+    border-radius: 50%;
+    @include elevation(1);
+    @include timeline-dots($timeline-dot-regular-size, $timeline-inner-dot-regular-size);
+
+    &--small {
+        @include timeline-dots($timeline-dot-small-size, $timeline-inner-dot-small-size);
+    }
+
+    &--large {
+        @include timeline-dots($timeline-dot-large-size, $timeline-inner-dot-large-size);
+    }
+}
+
+.o-timeline-item__inner-dot {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.o-timeline-item__opposite {
+    flex: 1 1 auto;
+    align-self: center;
+    max-width: calc(#{$timeline-divider-center} - #{math.div($timeline-divider-width, 2)});
+}
+
+// Before/after directions
+.o-timeline:not(.o-timeline--dense):not(.o-timeline--reverse) {
+    .o-timeline-item {
+        &:nth-child(odd):not(.o-timeline-item--before),
+        &--after {
+            @include timeline-item-align(left);
+            @include timeline-wedge-align(left);
+            .o-timeline-item__body {
+                max-width: calc(#{100% - $timeline-divider-center} - #{math.div($timeline-divider-width, 2)});
+            }
+        }
+
+        &:nth-child(even):not(.o-timeline-item--after),
+        &--before {
+            @include timeline-item-align(right);
+            @include timeline-wedge-align(right);
+            .o-timeline-item__body {
+                max-width: calc(#{$timeline-divider-center} - #{math.div($timeline-divider-width, 2)});
+            }
+        }
+    }
+}
+
+// Wedge
+.o-timeline-item__body {
+    > .o-card:not(.o-card--flat) {
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            border-top: $timeline-wedge-size solid transparent;
+            border-bottom: $timeline-wedge-size solid transparent;
+            border-right: $timeline-wedge-size solid black;
+            top: calc(50% - #{$timeline-wedge-size});
+        }
+
+        &:after {
+            border-right-color: inherit;
+        }
+
+        &:before {
+            top: calc(50% - #{$timeline-wedge-size} + 2px);
+        }
+    }
+}
+
+// Modifiers
+.o-timeline--align-top {
+    .o-timeline-item__dot {
+        align-self: start;
+    }
+
+    .o-timeline-item__body {
+        > .o-card {
+            &:before {
+                top: calc(0% + #{$timeline-wedge-size} + 2px);
+            }
+
+            &:after {
+                top: calc(0% + #{$timeline-wedge-size});
+            }
+        }
+    }
+}
+
+.o-timeline:not(.o-timeline--dense):not(.o-timeline--reverse) {
+    @include timeline-line-align($timeline-divider-center, left, right);
+}
+
+.o-timeline--reverse:not(.o-timeline--dense) {
+    @include timeline-line-align($timeline-divider-center, right, left);
+
+    .o-timeline-item {
+        &:nth-child(odd):not(.o-timeline-item--after),
+        &--before {
+            @include timeline-item-align(right);
+            @include timeline-wedge-align(right);
+            .o-timeline-item__body {
+                max-width: calc(#{100% - $timeline-divider-center} - #{math.div($timeline-divider-width, 2)});
+            }
+        }
+
+        &:nth-child(even):not(.o-timeline-item--before),
+        &--after {
+            @include timeline-item-align(left);
+            @include timeline-wedge-align(left);
+            .o-timeline-item__body {
+                max-width: calc(#{$timeline-divider-center} - #{math.div($timeline-divider-width, 2)});
+            }
+        }
+    }
+}
+
+.o-timeline--reverse.o-timeline--dense {
+    @include timeline-line-align(math.div($timeline-divider-width, 2), right, left);
+}
+
+.o-timeline--dense:not(.o-timeline--reverse) {
+    @include timeline-line-align(math.div($timeline-divider-width, 2), left, right);
+}
+
+.o-timeline--dense {
+    .o-timeline-item {
+        flex-direction: row-reverse !important;
+        @include timeline-wedge-align(left);
+    }
+
+    .o-timeline-item__body {
+        max-width: calc(100% - #{$timeline-divider-width});
+    }
+
+    .o-timeline-item__opposite {
+        display: none;
+    }
+}
+
+.o-timeline--reverse.o-timeline--dense {
+    .o-timeline-item {
+        flex-direction: row !important;
+        @include timeline-wedge-align(right);
+    }
+}
+
+.o-timeline-item--fill-dot {
+    .o-timeline-item__inner-dot {
+        height: inherit;
+        margin: 0;
+        width: inherit;
+    }
+}

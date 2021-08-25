@@ -1,0 +1,32 @@
+@import "../../styles/styles";
+
+.o-form-item {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+
+    &__label {
+        margin-right: 12px;
+        text-overflow: ellipsis;
+        user-select: none;
+    }
+    &__label--required:before {
+        content: "*";
+        display: inline-block;
+        color: #ff4d4f;
+        margin-right: 4px;
+        padding-top: 4px;
+        font-size: 14px;
+        font-family: $body-font-family;
+        line-height: 1;
+    }
+
+    &__input {
+        display: block;
+        width: 100%;
+    }
+
+    & + .o-form-item {
+        margin-top: 8px;
+    }
+}

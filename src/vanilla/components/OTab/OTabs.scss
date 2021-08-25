@@ -1,0 +1,282 @@
+// Imports
+@import "./variables";
+
+@include theme(o-tabs) using ($theme) {
+    > .o-tabs-bar {
+        background-color: map-get($theme, $tabs-bar-background-color);
+
+        .o-tab:not(.o-tab--active),
+        .o-tab:not(.o-tab--active) > .o-icon,
+        .o-tab:not(.o-tab--active) > .o-btn,
+        .o-tab--disabled {
+            color: map-get($theme, "tabs");
+        }
+    }
+
+    .o-tab {
+        @include states($theme);
+    }
+}
+
+@include theme(o-tabs-items) using ($theme) {
+    background-color: map-get($theme, "cards");
+}
+
+.o-tabs-bar {
+    &.primary,
+    &.secondary,
+    &.accent,
+    &.success,
+    &.error,
+    &.warning,
+    &.info {
+        .o-tab,
+        .o-tabs-slider {
+            color: map-deep-get($theme-dark, "text", "primary");
+        }
+    }
+}
+
+// Block
+.o-tabs {
+    flex: 1 1 auto;
+    width: 100%;
+
+    .o-menu__activator {
+        height: 100%;
+    }
+
+    &:not(.o-tabs--vertical) {
+        .o-tab {
+            white-space: normal;
+        }
+
+        // https://github.com/vuetifyjs/vuetify/issues/8294
+        &.o-tabs--right {
+            > .o-slide-group--is-overflowing.o-tabs-bar--is-mobile:not(.o-slide-group--has-affixes) .o-slide-group__next {
+                display: initial;
+                visibility: hidden;
+            }
+        }
+
+        // https://github.com/vuetifyjs/vuetify/issues/6932
+        &:not(.o-tabs--right) {
+            > .o-slide-group--is-overflowing.o-tabs-bar--is-mobile:not(.o-slide-group--has-affixes) .o-slide-group__prev {
+                display: initial;
+                visibility: hidden;
+            }
+        }
+    }
+}
+
+// Element
+.o-tabs-bar {
+    border-radius: inherit;
+    height: $tabs-bar-height;
+
+    &.o-item-group > * {
+        cursor: initial;
+    }
+}
+
+.o-tab {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex: 0 1 auto;
+    font-size: $tab-font-size;
+    font-weight: $tab-font-weight;
+    justify-content: center;
+    letter-spacing: $tabs-item-letter-spacing;
+    line-height: $tab-line-height;
+    min-width: $tabs-item-min-width;
+    max-width: $tabs-item-max-width;
+    outline: none;
+    padding: $tabs-item-padding;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: none;
+    user-select: none;
+
+    // Needs increased specificity
+    &.o-tab {
+        color: inherit;
+    }
+
+    &:before {
+        background-color: currentColor;
+        bottom: 0;
+        content: "";
+        left: 0;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: $primary-transition;
+    }
+}
+
+.o-tabs-slider {
+    background-color: currentColor;
+    height: 100%;
+    width: 100%;
+
+    &-wrapper {
+        bottom: 0;
+        margin: 0 !important;
+        position: absolute;
+        transition: $primary-transition;
+        z-index: 1;
+    }
+}
+
+// Modifier
+.o-tabs--align-with-title > .o-tabs-bar:not(.o-tabs-bar--show-arrows):not(.o-slide-group--is-overflowing) > .o-slide-group__wrapper > .o-tabs-bar__content {
+    & > .o-tab:first-child,
+    & > .o-tabs-slider-wrapper + .o-tab {
+        @include ltr() {
+            margin-left: $tabs-item-align-with-title-margin;
+        }
+        @include rtl() {
+            margin-right: $tabs-item-align-with-title-margin;
+        }
+    }
+}
+
+.o-tabs--fixed-tabs > .o-tabs-bar,
+.o-tabs--centered > .o-tabs-bar {
+    .o-tabs-bar__content > *:last-child {
+        @include ltr() {
+            margin-right: auto;
+        }
+
+        @include rtl() {
+            margin-left: auto;
+        }
+    }
+
+    .o-tabs-bar__content > *:first-child:not(.o-tabs-slider-wrapper),
+    .o-tabs-slider-wrapper + * {
+        @include ltr() {
+            margin-left: auto;
+        }
+
+        @include rtl() {
+            margin-right: auto;
+        }
+    }
+}
+
+.o-tabs--fixed-tabs > .o-tabs-bar {
+    .o-tab {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+}
+
+.o-tabs--grow > .o-tabs-bar {
+    .o-tab {
+        flex: 1 0 auto;
+        max-width: none;
+    }
+}
+
+.o-tabs--icons-and-text > .o-tabs-bar {
+    height: $tabs-icons-and-text-bar-height;
+
+    .o-tab {
+        flex-direction: column-reverse;
+
+        > *:first-child {
+            margin-bottom: $tabs-icons-and-text-first-tab-margin-bottom;
+        }
+    }
+}
+
+.o-tabs--overflow > .o-tabs-bar {
+    .o-tab {
+        flex: 1 0 auto;
+    }
+}
+
+.o-tabs--right > .o-tabs-bar {
+    .o-tab:first-child,
+    .o-tabs-slider-wrapper + .o-tab {
+        @include ltr() {
+            margin-left: auto;
+        }
+
+        @include rtl() {
+            margin-right: auto;
+        }
+    }
+
+    .o-tab:last-child {
+        @include ltr() {
+            margin-right: 0;
+        }
+
+        @include rtl() {
+            margin-left: 0;
+        }
+    }
+}
+
+.o-tabs--vertical {
+    display: flex;
+
+    & > .o-tabs-bar {
+        flex: 1 0 auto;
+        height: auto;
+
+        .o-slide-group__next,
+        .o-slide-group__prev {
+            display: none;
+        }
+
+        .o-tabs-bar__content {
+            flex-direction: column;
+        }
+
+        .o-tab {
+            height: $tabs-item-vertical-height;
+        }
+
+        .o-tabs-slider {
+            height: 100%;
+        }
+    }
+
+    & > .o-window {
+        flex: 0 1 100%;
+    }
+
+    &.o-tabs--icons-and-text {
+        & > .o-tabs-bar {
+            .o-tab {
+                height: $tabs-item-vertical-icons-and-text-height;
+            }
+        }
+    }
+}
+
+.o-tab--active {
+    color: inherit;
+
+    &.o-tab:not(:focus)::before {
+        opacity: 0;
+    }
+
+    .o-icon,
+    .o-btn.o-btn--flat {
+        color: inherit;
+    }
+}
+
+.o-tab--disabled {
+    pointer-events: none;
+    opacity: $tab-disabled-opacity;
+}

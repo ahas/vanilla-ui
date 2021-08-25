@@ -1,0 +1,57 @@
+@import "./_variables";
+
+// Theme
+@include theme(o-breadcrumbs) using ($theme) {
+    .o-breadcrumbs__divider,
+    .o-breadcrumbs__item--disabled {
+        color: map-deep-get($theme, "text", "disabled");
+    }
+}
+
+// Block
+.o-breadcrumbs {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex: $breadcrumbs-flex;
+    list-style-type: none;
+    margin: $breadcrumbs-margin;
+    padding: $breadcrumbs-padding;
+
+    li {
+        align-items: center;
+        display: inline-flex;
+        font-size: $breadcrumbs-item-font-size;
+
+        .o-icon {
+            font-size: $breadcrumbs-item-large-font-size;
+        }
+
+        &:nth-child(even) {
+            padding: $breadcrumbs-even-child-padding;
+        }
+    }
+}
+
+// Element
+.o-breadcrumbs__item {
+    align-items: center;
+    display: inline-flex;
+    text-decoration: none;
+    transition: $primary-transition;
+
+    &--disabled {
+        pointer-events: none;
+    }
+}
+
+// Modifier
+.o-breadcrumbs--large {
+    li {
+        font-size: $breadcrumbs-item-large-font-size;
+
+        .o-icon {
+            font-size: $breadcrumbs-item-large-font-size;
+        }
+    }
+}

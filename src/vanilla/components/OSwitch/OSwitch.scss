@@ -1,0 +1,123 @@
+@import "./_variables.scss";
+
+// Theme
+@include theme(o-input--switch) using ($theme) {
+    .o-input--switch__thumb {
+        color: map-deep-get($theme, "selection-controls", "thumb", "inactive");
+    }
+
+    .o-input--switch__track {
+        color: map-deep-get($theme, "selection-controls", "track", "inactive");
+    }
+
+    &.o-input--is-disabled:not(.o-input--is-dirty) {
+        .o-input--switch__thumb {
+            color: map-deep-get($theme, "selection-controls", "thumb", "disabled") !important;
+        }
+
+        .o-input--switch__track {
+            color: map-deep-get($theme, "selection-controls", "track", "disabled") !important  ;
+        }
+    }
+}
+
+.o-input--switch {
+    &__track,
+    &__thumb {
+        background-color: currentColor;
+        pointer-events: none;
+        transition: inherit;
+    }
+
+    &__track {
+        border-radius: $switch-track-border-radius;
+        width: $switch-track-width;
+        height: $switch-track-height;
+        left: $switch-track-x;
+        position: absolute;
+        right: $switch-track-x;
+        top: $switch-track-top;
+    }
+
+    &__thumb {
+        border-radius: 50%;
+        top: $switch-thumb-top;
+        left: $switch-thumb-left;
+        height: $switch-thumb-height;
+        position: relative;
+        width: $switch-thumb-width;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: $primary-transition;
+    }
+
+    &:not(.o-input--is-disabled) {
+        .o-input--switch__thumb {
+            @include elevation($switch-thumb-elevation);
+        }
+    }
+
+    &:active {
+        .o-input--switch__thumb {
+            width: $switch-thumb-width * $switch-thumb-active-scale-x;
+            border-radius: $switch-thumb-width * $switch-thumb-active-scale-x;
+        }
+    }
+
+    .o-input--selection-controls__input {
+        width: $switch-width;
+    }
+
+    .o-input--selection-controls__ripple {
+        top: $switch-ripple-top;
+    }
+
+    @include ltr() {
+        .o-input--selection-controls__ripple {
+            left: $switch-ripple-x;
+        }
+
+        &.o-input--is-dirty {
+            .o-input--selection-controls__ripple,
+            .o-input--switch__thumb {
+                transform: translate($switch-dirty-offset-x, 0);
+            }
+
+            &:active {
+                .o-input--switch__thumb {
+                    transform: translate($switch-dirty-offset-x - $switch-thumb-active-dirty-margin);
+                }
+            }
+        }
+    }
+
+    @include rtl() {
+        .o-input--selection-controls__ripple {
+            right: $switch-ripple-x;
+        }
+
+        &.o-input--is-dirty {
+            .o-input--selection-controls__ripple,
+            .o-input--switch__thumb {
+                transform: translate(-$switch-dirty-offset-x, 0);
+            }
+
+            &:active {
+                .o-input--switch__thumb {
+                    transform: translate(-$switch-dirty-offset-x + $switch-thumb-active-dirty-margin);
+                }
+            }            
+        }
+    }
+
+    .o-input--selection-controls__input {
+        @include ltr() {
+            margin-right: 16px;
+        }
+
+        @include rtl() {
+            margin-left: 16px;
+        }
+    }
+}

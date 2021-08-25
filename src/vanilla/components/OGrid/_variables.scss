@@ -1,0 +1,29 @@
+@use 'sass:math';
+@import "../../styles/styles";
+
+$spacer: 4px !default;
+$grid-items: 16 !default;
+$grid-gutter: $spacer * 4 !default;
+$form-grid-gutter: $spacer * 2 !default;
+$container-padding-x: math.div($grid-gutter, 2) !default;
+$grid-gutters: (
+    "xs": math.div($grid-gutter, 12),
+    "sm": math.div($grid-gutter, 6),
+    "md": math.div($grid-gutter, 3),
+    "lg": $grid-gutter * math.div(2, 3),
+    "xl": $grid-gutter,
+);
+
+$grid-breakpoints: (
+    "xs": 0,
+    "sm": 600px,
+    "md": 960px,
+    "lg": 1280px - 16px,
+    "xl": 1920px - 16px,
+);
+
+$container-max-widths: (
+    "md": map-get($grid-breakpoints, "md") * 0.9375,
+    "lg": map-get($grid-breakpoints, "lg") * 0.9375,
+    "xl": map-get($grid-breakpoints, "xl") * 0.9375,
+);

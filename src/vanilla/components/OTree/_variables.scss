@@ -1,0 +1,10 @@
+@import '../../styles/styles';
+
+$tree-transition: .2s map-get($transition, 'linear-out-slow-in') !default;
+$tree-label-font-size: inherit !default;
+$tree-node-height: 48px !default;
+$tree-node-height-dense: 40px !default;
+$tree-node-shaped-margin: 8px !default;
+$tree-node-padding: 8px !default;
+$tree-node-margin: 6px !default;
+$tree-node-level-width: 24px !default;

@@ -1,0 +1,142 @@
+@import "./variables";
+
+.v-window {
+    overflow: hidden;
+
+    &__container {
+        height: inherit;
+        position: relative;
+        transition: $window-transition;
+
+        &--is-active {
+            overflow: hidden;
+        }
+    }
+
+    &__prev,
+    &__next {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        position: absolute;
+        margin: $window-controls-margin;
+        top: $window-controls-top;
+        z-index: 1;
+
+        .v-btn:hover {
+            background: none;
+        }
+    }
+
+    &__prev {
+        @include ltr() {
+            left: 0;
+        }
+
+        @include rtl() {
+            right: 0;
+        }
+    }
+
+    &__next {
+        @include ltr() {
+            right: 0;
+        }
+
+        @include rtl() {
+            left: 0;
+        }
+    }
+
+    &--show-arrows-on-hover {
+        overflow: hidden;
+
+        .v-window__next,
+        .v-window__prev {
+            transition: 0.2s transform map-get($transition, "swing");
+        }
+
+        .v-window__prev {
+            @include ltr() {
+                transform: translateX(-200%);
+            }
+
+            @include rtl() {
+                transform: translateX(200%);
+            }
+        }
+
+        .v-window__next {
+            @include ltr() {
+                transform: translateX(200%);
+            }
+
+            @include rtl() {
+                transform: translateX(-200%);
+            }
+        }
+
+        &:hover {
+            .v-window__next,
+            .v-window__prev {
+                transform: translateX(0);
+            }
+        }
+    }
+
+    &-x-transition,
+    &-x-reverse-transition,
+    &-y-transition,
+    &-y-reverse-transition {
+        &-enter-active,
+        &-leave-active {
+            transition: $window-transition;
+        }
+
+        &-leave,
+        &-leave-to {
+            position: absolute !important;
+            top: 0;
+            width: 100%;
+        }
+    }
+
+    &-x-transition {
+        &-enter {
+            transform: translateX(100%);
+        }
+
+        &-leave-to {
+            transform: translateX(-100%);
+        }
+    }
+
+    &-x-reverse-transition {
+        &-enter {
+            transform: translateX(-100%);
+        }
+
+        &-leave-to {
+            transform: translateX(100%);
+        }
+    }
+
+    &-y-transition {
+        &-enter {
+            transform: translateY(100%);
+        }
+
+        &-leave-to {
+            transform: translateY(-100%);
+        }
+    }
+
+    &-y-reverse-transition {
+        &-enter {
+            transform: translateY(-100%);
+        }
+
+        &-leave-to {
+            transform: translateY(100%);
+        }
+    }
+}

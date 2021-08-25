@@ -1,0 +1,9 @@
+.o-link {
+    background-color: transparent; /* Remove the gray background on active links in IE 10 */
+    text-decoration: none;
+}
+
+.o-link:active,
+.o-link:hover {
+    outline-width: 0; /* Remove the outline when hovering in all browsers */
+}

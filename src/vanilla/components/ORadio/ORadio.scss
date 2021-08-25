@@ -1,0 +1,33 @@
+@import "./variables";
+
+// Theme
+@include theme(o-radio) using ($theme) {
+    &--is-disabled {
+        label {
+            color: map-deep-get($theme, "text", "disabled");
+        }
+
+        .o-icon {
+            // needed for helper override
+            color: map-deep-get($theme, "selection-controls", "disabled") !important;
+        }
+    }
+}
+
+.o-radio {
+    display: flex;
+    align-items: center;
+    height: auto;
+    outline: none;
+
+    &--is-disabled {
+        pointer-events: none;
+        cursor: default;
+    }
+}
+
+.o-input--radio-group.o-input--radio-group--row {
+    .o-radio {
+        margin-right: $radio-margin-right;
+    }
+}

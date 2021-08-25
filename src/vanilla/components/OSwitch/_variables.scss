@@ -1,0 +1,19 @@
+@use 'sass:math';
+@import "../../styles/styles.scss";
+
+$switch-dirty-offset-x: 20px !default;
+$switch-ripple-top: calc(50% - 22px) !default;
+$switch-ripple-x: -14px !default;
+$switch-thumb-elevation: 4 !default;
+$switch-thumb-width: 24px !default;
+$switch-thumb-height: 24px !default;
+$switch-thumb-top: calc(50% - 12px) !default;
+$switch-thumb-left: -2px !default;
+$switch-thumb-active-scale-x: 1.5 !default;
+$switch-thumb-active-dirty-margin: ($switch-thumb-width * $switch-thumb-active-scale-x) - $switch-thumb-width;
+$switch-track-border-radius: 14px !default;
+$switch-track-width: 48px !default;
+$switch-track-height: 28px !default;
+$switch-track-top: calc(50% - #{math.div($switch-track-height, 2)}) !default;
+$switch-track-x: -4px !default;
+$switch-width: 38px !default;
