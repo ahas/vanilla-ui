@@ -1,4 +1,4 @@
-import { CreateElement, RenderContext } from "vue/types/umd";
+import { CreateElement, RenderContext } from "vue/types";
 
 export default {
     functional: true,

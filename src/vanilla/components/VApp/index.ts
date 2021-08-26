@@ -1,3 +1,3 @@
-import OApp from "./VApp";
+import VApp from "./VApp";
 
-export { OApp };
+export { VApp };

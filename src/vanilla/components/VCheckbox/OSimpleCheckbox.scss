@@ -1,0 +1,15 @@
+.v-simple-checkbox {
+    align-self: center;
+    line-height: normal;
+    position: relative;
+    user-select: none;
+
+    .v-icon {
+        cursor: pointer;
+    }
+}
+
+// Modifiers
+.v-simple-checkbox--disabled {
+    cursor: default;
+}

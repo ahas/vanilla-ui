@@ -228,26 +228,25 @@ export function remapInternalIcon(vm: Vue, iconName: string): VanillaIcon {
 
 // KeyboardEvent.keyCode aliases
 export const KeyCodes = Object.freeze({
-    enter: 13,
-    tab: 9,
-    delete: 46,
-    esc: 27,
-    space: 32,
-    up: 38,
-    down: 40,
-    left: 37,
-    right: 39,
-    end: 35,
-    home: 36,
-    del: 46,
-    backspace: 8,
-    insert: 45,
-    pageup: 33,
-    pagedown: 34,
+    enter: "Enter",
+    tab: "Tab",
+    delete: "Delete",
+    esc: "Escape",
+    space: "Space",
+    up: "ArrowUp",
+    down: "ArrowDown",
+    left: "ArrowLeft",
+    right: "ArrowRight",
+    end: "End",
+    home: "Home",
+    backspace: "Backspace",
+    insert: "Insert",
+    pageup: "PageUp",
+    pagedown: "PageDown",
 });
 
-export function keys<O>(o: O) {
-    return Object.keys(o);
+export function keys<O>(o: O): (keyof O)[] {
+    return Object.keys(o) as (keyof O)[];
 }
 
 /**

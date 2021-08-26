@@ -1,6 +1,5 @@
-@import '../../styles/styles.sass';
+@import "../../styles/styles.scss";
 
-$ripple-animation-transition-in: transform .25s map-get($transition, 'fast-in-slow-out'),
-                                 opacity .1s map-get($transition, 'fast-in-slow-out') !default;
-$ripple-animation-transition-out: opacity .3s map-get($transition, 'fast-in-slow-out') !default;
-$ripple-animation-visible-opacity: .15 !default;
+$ripple-animation-transition-in: transform 0.25s map-get($transition, "fast-in-slow-out"), opacity 0.1s map-get($transition, "fast-in-slow-out") !default;
+$ripple-animation-transition-out: opacity 0.3s map-get($transition, "fast-in-slow-out") !default;
+$ripple-animation-visible-opacity: 0.15 !default;

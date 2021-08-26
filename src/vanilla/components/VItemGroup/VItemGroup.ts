@@ -1,5 +1,4 @@
 import "./OItemGroup.scss";
-import Vue from "vue";
 
 // Mixins
 import Groupable from "../../mixins/groupable";
@@ -8,17 +7,20 @@ import Themeable from "../../mixins/themeable";
 
 // Utils
 import { consoleWarn } from "../../utils/console";
+import mixins from "../../utils/mixins";
 
 // Types
+import { VNode } from "vue/types";
 export type GroupableInstance = InstanceType<typeof Groupable> & {
     id?: string;
     to?: any;
     value?: any;
 };
 
-export const BaseItemGroup = Vue.extend({
+const BaseMixins = mixins(Proxyable, Themeable);
+
+export const BaseItemGroup = BaseMixins.extend({
     name: "BaseItemGroup",
-    mixins: [Proxyable, Themeable],
     props: {
         activeClass: {
             type: String,
@@ -41,42 +43,44 @@ export const BaseItemGroup = Vue.extend({
             // Otherwise, check if multiple
             // to determine which default to provide
             internalLazyValue: this.value !== undefined ? this.value : this.multiple ? [] : undefined,
-            items: [],
+            items: [] as GroupableInstance[],
         };
     },
     computed: {
-        classes() {
+        classes(): object {
             return {
                 "o-item-group": true,
                 ...this.themeClasses,
             };
         },
-        selectedIndex() {
+        selectedIndex(): number {
             return (this.selectedItem && this.items.indexOf(this.selectedItem)) || -1;
         },
-        selectedItem() {
-            if (this.multiple) return undefined;
+        selectedItem(): GroupableInstance | undefined {
+            if (this.multiple) {
+                return undefined;
+            }
 
             return this.selectedItems[0];
         },
-        selectedItems() {
+        selectedItems(): GroupableInstance[] {
             return this.items.filter((item, index) => {
                 return this.toggleMethod(this.getValue(item, index));
             });
         },
-        selectedValues() {
+        selectedValues(): any[] {
             if (this.internalValue == null) return [];
 
             return Array.isArray(this.internalValue) ? this.internalValue : [this.internalValue];
         },
-        toggleMethod() {
+        toggleMethod(): (v: any) => boolean {
             if (!this.multiple) {
-                return (v) => this.internalValue === v;
+                return (v: any) => this.internalValue === v;
             }
 
             const internalValue = this.internalValue;
             if (Array.isArray(internalValue)) {
-                return (v) => internalValue.includes(v);
+                return (v: any) => internalValue.includes(v);
             }
 
             return () => false;
@@ -92,18 +96,18 @@ export const BaseItemGroup = Vue.extend({
         }
     },
     methods: {
-        genData() {
+        genData(): object {
             return {
                 class: this.classes,
             };
         },
-        getValue(item, i) {
+        getValue(item: GroupableInstance, i: number): unknown {
             return item.value == null || item.value === "" ? i : item.value;
         },
-        onClick(item) {
+        onClick(item: GroupableInstance) {
             this.updateInternalValue(this.getValue(item, this.items.indexOf(item)));
         },
-        register(item) {
+        register(item: GroupableInstance) {
             const index = this.items.push(item) - 1;
 
             item.$on("change", () => this.onClick(item));
@@ -116,7 +120,7 @@ export const BaseItemGroup = Vue.extend({
 
             this.updateItem(item, index);
         },
-        unregister(item) {
+        unregister(item: GroupableInstance) {
             if (this._isDestroyed) return;
 
             const index = this.items.indexOf(item);
@@ -148,13 +152,13 @@ export const BaseItemGroup = Vue.extend({
                 this.updateMandatory(true);
             }
         },
-        updateItem(item, index) {
+        updateItem(item: GroupableInstance, index: number) {
             const value = this.getValue(item, index);
 
             item.isActive = this.toggleMethod(value);
         },
         // https://github.com/vuetifyjs/vuetify/issues/5352
-        updateItemsState() {
+        updateItemsState(): void {
             this.$nextTick(() => {
                 if (this.mandatory && !this.selectedItems.length) {
                     return this.updateMandatory();
@@ -166,10 +170,10 @@ export const BaseItemGroup = Vue.extend({
                 this.items.forEach(this.updateItem);
             });
         },
-        updateInternalValue(value) {
+        updateInternalValue(value: any) {
             this.multiple ? this.updateMultiple(value) : this.updateSingle(value);
         },
-        updateMandatory(last) {
+        updateMandatory(last?: boolean) {
             if (!this.items.length) return;
 
             const items = this.items.slice();
@@ -186,7 +190,7 @@ export const BaseItemGroup = Vue.extend({
 
             this.updateInternalValue(this.getValue(item, index));
         },
-        updateMultiple(value) {
+        updateMultiple(value: any) {
             const defaultValue = Array.isArray(this.internalValue) ? this.internalValue : [];
             const internalValue = defaultValue.slice();
             const index = internalValue.findIndex((val) => val === value);
@@ -214,7 +218,7 @@ export const BaseItemGroup = Vue.extend({
 
             this.internalValue = internalValue;
         },
-        updateSingle(value) {
+        updateSingle(value: any) {
             const isSame = value === this.internalValue;
 
             if (this.mandatory && isSame) return;
@@ -222,15 +226,14 @@ export const BaseItemGroup = Vue.extend({
             this.internalValue = isSame ? undefined : value;
         },
     },
-
-    render(h) {
+    render(h): VNode {
         return h(this.tag, this.genData(), this.$slots.default);
     },
 });
 
 export default BaseItemGroup.extend({
     name: "OItemGroup",
-    provide() {
+    provide(): object {
         return {
             itemGroup: this,
         };

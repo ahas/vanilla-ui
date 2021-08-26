@@ -1,21 +1,21 @@
 import "./VSheet.scss";
 
 // Mixins
-import BindsAttrs from "@/vanilla/mixins/binds-attrs";
-import Colorable from "@/vanilla/mixins/colorable";
-import Elevatable from "@/vanilla/mixins/elevatable";
-import Measurable from "@/vanilla/mixins/measurable";
-import Roundable from "@/vanilla/mixins/roundable";
-import Themeable from "@/vanilla/mixins/themeable";
+import BindsAttrs from "../../mixins/binds-attrs";
+import Colorable from "../../mixins/colorable";
+import Elevatable from "../../mixins/elevatable";
+import Measurable from "../../mixins/measurable";
+import Roundable from "../../mixins/roundable";
+import Themeable from "../../mixins/themeable";
 
 // Utilities
-import mixins from "@/vanilla/utils/mixins";
+import mixins from "../../utils/mixins";
 
 // Types
-import { VNode } from "vue/types/umd";
+import { VNode } from "vue/types";
 
 export default mixins(BindsAttrs, Colorable, Elevatable, Measurable, Roundable, Themeable).extend({
-    name: "VSheet",
+    name: "v-sheet",
     props: {
         outlined: Boolean,
         shaped: Boolean,
@@ -27,7 +27,7 @@ export default mixins(BindsAttrs, Colorable, Elevatable, Measurable, Roundable, 
         },
     },
     computed: {
-        classes() {
+        classes(): object {
             return {
                 "v-sheet": true,
                 "v-sheet--outlined": this.outlined,
@@ -39,7 +39,7 @@ export default mixins(BindsAttrs, Colorable, Elevatable, Measurable, Roundable, 
                 ...this.roundedClasses,
             };
         },
-        styles() {
+        styles(): object {
             return this.measurableStyles;
         },
     },

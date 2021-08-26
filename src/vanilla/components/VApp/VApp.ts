@@ -1,5 +1,7 @@
 import "./VApp.scss";
 
+import { VNode } from "vue";
+
 // Utilities
 import mixins from "../../utils/mixins";
 
@@ -8,7 +10,7 @@ import Themeable from "../../mixins/themeable";
 
 /* @vue/component */
 export default mixins(Themeable).extend({
-    name: "VApp",
+    name: "v-app",
     props: {
         backgroundColor: { type: String, default: "#fafafa" },
         dark: {
@@ -46,7 +48,7 @@ export default mixins(Themeable).extend({
             throw new Error("Vanilla is not properly initialized");
         }
     },
-    render(h) {
+    render(h): VNode {
         const wrapper = h("div", { staticClass: "o-app--wrap" }, this.$slots.default);
 
         return h(

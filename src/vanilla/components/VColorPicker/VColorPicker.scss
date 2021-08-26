@@ -1,0 +1,41 @@
+@import "./_variables.scss";
+
+@include theme(v-color-picker) using ($theme) {
+    .v-color-picker__input input {
+        border: thin solid map-get($theme, "dividers");
+        color: map-deep-get($theme, "text", "primary");
+    }
+
+    span {
+        color: map-deep-get($theme, "text", "secondary");
+    }
+
+    .v-color-picker__dot,
+    .v-color-picker__color {
+        background-color: map-deep-get($theme, "color-picker", "checkerboard");
+    }
+}
+
+// Block
+.v-color-picker {
+    align-self: flex-start;
+    border-radius: $color-picker-border-radius;
+    contain: content;
+    @include elevation(2);
+}
+
+// Element
+.v-color-picker__controls {
+    display: flex;
+    flex-direction: column;
+    padding: $color-picker-controls-padding;
+}
+
+// Modifier
+.v-color-picker--flat {
+    @include elevation(0);
+
+    .v-color-picker__track:not(.v-input--is-disabled) .v-slider__thumb {
+        @include elevation(0);
+    }
+}

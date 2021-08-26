@@ -1,0 +1,28 @@
+@import "./variables";
+
+@mixin firefox() {
+    @-moz-document url-prefix() {
+        @content;
+    }
+}
+
+.v-main {
+    @include bootable();
+
+    display: flex;
+    flex: 1 0 auto;
+    max-width: 100%;
+    transition: $main-transition;
+
+    &__wrap {
+        flex: 1 1 auto;
+        max-width: 100%;
+        position: relative;
+    }
+
+    @include firefox() {
+        @media print {
+            display: block;
+        }
+    }
+}

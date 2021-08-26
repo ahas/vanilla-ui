@@ -10,7 +10,7 @@ import mixins from "../../utils/mixins";
 
 // Types
 import { PropValidator } from "vue/types/options";
-import { InputMessage, InputValidationRules } from "vuetify/types";
+import { InputMessage, InputValidationRules } from "../../types";
 
 const baseMixins = mixins(Colorable, RegistrableInject<"form", any>("form"), Themeable);
 

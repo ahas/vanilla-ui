@@ -30,7 +30,7 @@ export const VExpandTransition = createJavascriptTransition("expand-transition",
 export const VExpandXTransition = createJavascriptTransition("expand-x-transition", ExpandTransitionGenerator("", true));
 
 export default {
-    $_vuetify_subcomponents: {
+    $_vanilla_subcomponents: {
         VCarouselTransition,
         VCarouselReverseTransition,
         VDialogTransition,

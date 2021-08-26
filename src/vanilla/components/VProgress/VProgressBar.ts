@@ -1,4 +1,4 @@
-import "./VProgressLinear.sass";
+import "./VProgressBar.scss";
 
 // Components
 import { VFadeTransition, VSlideXTransition } from "../transitions";
@@ -13,8 +13,8 @@ import Proxyable from "../../mixins/proxyable";
 import Themeable from "../../mixins/themeable";
 
 // Utilities
-import { convertToUnit, getSlot } from "../../util/helpers";
-import mixins from "../../util/mixins";
+import { convertToUnit, getSlot } from "../../utils/helpers";
+import mixins from "../../utils/mixins";
 
 // Types
 import { FunctionalComponentOptions } from "vue/types";
@@ -24,10 +24,8 @@ const baseMixins = mixins(Colorable, PositionableFactory(["absolute", "fixed", "
 
 /* @vue/component */
 export default baseMixins.extend({
-    name: "v-progress-linear",
-
+    name: "v-progress-bar",
     directives: { intersect },
-
     props: {
         active: {
             type: Boolean,
@@ -156,7 +154,7 @@ export default baseMixins.extend({
             return this.indeterminate ? VFadeTransition : VSlideXTransition;
         },
         isReversed(): boolean {
-            return this.$vuetify.rtl !== this.reverse;
+            return this.$vanilla.rtl !== this.reverse;
         },
         normalizedBuffer(): number {
             return this.normalize(this.bufferValue);
@@ -181,7 +179,6 @@ export default baseMixins.extend({
             return styles;
         },
     },
-
     methods: {
         genContent() {
             const slot = getSlot(this, "default", { value: this.internalLazyValue });
@@ -232,7 +229,6 @@ export default baseMixins.extend({
             return parseFloat(value);
         },
     },
-
     render(h): VNode {
         const data = {
             staticClass: "v-progress-linear",

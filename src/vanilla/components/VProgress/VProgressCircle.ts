@@ -1,15 +1,19 @@
-import "./OProgressCircle.scss";
-import Vue from "vue";
+import "./VProgressCircle.scss";
 
 // Mixins
 import Colorable from "../../mixins/colorable";
 
-// Utils
+// Utilities
 import { convertToUnit } from "../../utils/helpers";
+import mixins from "../../utils/mixins";
 
-export default Vue.extend({
-    name: "OProgress",
-    mixins: [Colorable],
+// Types
+import { VNode } from "vue/types";
+
+const BaseMixins = mixins(Colorable);
+
+export default BaseMixins.extend({
+    name: "v-progress-circle",
     props: {
         value: {
             type: [Number, String],
@@ -34,21 +38,20 @@ export default Vue.extend({
         radius: 20,
     }),
     computed: {
-        computedSize() {
+        computedSize(): number {
             return Number(this.size) + (this.button ? 8 : 0);
         },
-        circumference() {
+        circumference(): number {
             return 2 * Math.PI * this.radius;
         },
-        classes() {
+        classes(): object {
             return {
                 "o-progress-circle": true,
                 "o-progress-circle--indeterminate": this.indeterminate,
                 "o-progress-circle--button": this.button,
-                ...this.colorableTextClasses,
             };
         },
-        clampedValue() {
+        clampedValue(): number {
             if (this.value < 0) {
                 return 0;
             }
@@ -59,35 +62,34 @@ export default Vue.extend({
 
             return parseFloat(this.value);
         },
-        strokeDashArray() {
+        strokeDashArray(): number {
             return Math.round(this.circumference * 1000) / 1000;
         },
-        strokeDashOffset() {
+        strokeDashOffset(): string {
             return ((100 - this.clampedValue) / 100) * this.circumference + "px";
         },
-        strokeWidth() {
+        strokeWidth(): number {
             return (Number(this.width) / +this.size) * this.viewBoxSize * 2;
         },
-        styles() {
+        styles(): object {
             return {
                 height: convertToUnit(this.computedSize),
                 width: convertToUnit(this.computedSize),
-                ...this.colorableTextStyles,
             };
         },
-        svgStyles() {
-            const styles = {};
+        svgStyles(): object {
+            const styles = {} as any;
             if (!this.indeterminate) {
                 styles.transform = `rotate(${Number(this.rotate)}deg)`;
             }
             return styles;
         },
-        viewBoxSize() {
+        viewBoxSize(): number {
             return this.radius / (1 - Number(this.width) / +this.size);
         },
     },
     methods: {
-        genCircle(name, offset) {
+        genCircle(name: string, offset: number | string): VNode {
             return this.$createElement("circle", {
                 class: `o-progress-circle__${name}`,
                 attrs: {
@@ -101,7 +103,7 @@ export default Vue.extend({
                 },
             });
         },
-        genSvg() {
+        genSvg(): VNode {
             const children = [this.indeterminate || this.genCircle("underlay", 0), this.genCircle("overlay", this.strokeDashOffset)];
 
             return this.$createElement(
@@ -116,7 +118,7 @@ export default Vue.extend({
                 children,
             );
         },
-        genInfo() {
+        genInfo(): VNode {
             return this.$createElement(
                 "div",
                 {
@@ -126,7 +128,7 @@ export default Vue.extend({
             );
         },
     },
-    render(h) {
+    render(h): VNode {
         return h(
             "div",
             this.setTextColor(this.color, {

@@ -1,4 +1,4 @@
-import Vue from "vue";
+import Vue, { VNode } from "vue";
 
 // Mixins
 import { factory as GroupableFactory } from "../../mixins/groupable";
@@ -6,7 +6,7 @@ import { factory as GroupableFactory } from "../../mixins/groupable";
 // Utils
 import { consoleWarn } from "../../utils/console";
 
-export const OBaseItem = Vue.extend({
+export const VBaseItem = Vue.extend({
     props: {
         activeClass: String,
         value: {
@@ -21,11 +21,11 @@ export const OBaseItem = Vue.extend({
             this.isActive = !this.isActive;
         },
     },
-    render() {
+    render(): VNode {
         if (!this.$scopedSlots.default) {
-            consoleWarn("o-item is missing a default scopedSlot", this);
+            consoleWarn("v-item is missing a default scopedSlot", this);
 
-            return null;
+            return null as any;
         }
 
         let element;
@@ -42,9 +42,9 @@ export const OBaseItem = Vue.extend({
         }
 
         if (!element || Array.isArray(element) || !element.tag) {
-            consoleWarn("o-item should only contain a single element", this);
+            consoleWarn("v-item should only contain a single element", this);
 
-            return element;
+            return element as any;
         }
 
         element.data = this._b(element.data || {}, element.tag, {
@@ -56,6 +56,6 @@ export const OBaseItem = Vue.extend({
 });
 
 export default Vue.extend({
-    name: "o-item",
-    mixins: [OBaseItem, GroupableFactory("itemGroup", "o-item", "o-item-group")],
+    name: "v-item",
+    mixins: [VBaseItem, GroupableFactory("itemGroup", "v-item", "v-item-group")],
 });

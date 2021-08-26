@@ -1,35 +1,52 @@
 import "./OBtn.scss";
-import Vue from "vue";
+
 // Mixins
 import Routable from "../../mixins/routable";
 import Positionable from "../../mixins/positionable";
-import Elevatable from "../../mixins/elevatable";
+import Elevatable, { ComputedElevation } from "../../mixins/elevatable";
 import Sizeable from "../../mixins/sizeable";
 import { factory as GroupableFactory } from "../../mixins/groupable";
 import { factory as ToggleableFactory } from "../../mixins/toggleable";
 import VSheet from "../VSheet/VSheet";
+import { inject as RegistrableInject } from "../../mixins/registrable";
 
 // Components
 import VProgressCircle from "../VProgress/VProgressCircle";
 
-export default Vue.extend({
-    name: "VBtn",
-    inject: {
-        oform: {
-            default: null,
-        },
-    },
-    mixins: [VSheet, Routable, Positionable, Sizeable, GroupableFactory("btnGroup"), ToggleableFactory("value")],
+// Utilities
+import mixins, { ExtractVue } from "../../utils/mixins";
+import { ComputedRipple } from "../../directives/ripple";
+
+// Types
+import { VNode } from "vue/types";
+import { PropValidator } from "vue/types/options";
+
+const BaseMixins = mixins(
+    VSheet,
+    Routable,
+    Positionable,
+    Sizeable,
+    RegistrableInject<"vform", any>("vform"),
+    GroupableFactory("btnGroup"),
+    ToggleableFactory("value"),
+);
+
+interface options extends ExtractVue<typeof BaseMixins> {
+    $el: HTMLElement;
+}
+
+export default BaseMixins.extend<options>().extend({
+    name: "v-btn",
     props: {
         activeClass: {
             type: String,
-            default() {
+            default(): string | undefined {
                 if (!this.btnGroup) {
                     return "";
                 }
                 return this.btnGroup.activeClass;
             },
-        },
+        } as any as PropValidator<string>,
         tag: { type: String, default: "button" },
         tile: Boolean,
         text: Boolean,
@@ -45,10 +62,10 @@ export default Vue.extend({
         proxyClass: "o-btn--active",
     }),
     computed: {
-        computedDisabled() {
-            return this.oform?.disabled || this.disabled;
+        computedDisabled(): boolean {
+            return this.vform?.disabled || this.disabled;
         },
-        classes() {
+        classes(): object {
             return {
                 "o-btn": true,
                 ...Routable.options.computed.classes.call(this),
@@ -77,20 +94,20 @@ export default Vue.extend({
                 ...this.sizeableClasses,
             };
         },
-        computedElevation() {
+        computedElevation(): ComputedElevation {
             if (this.disabled) {
                 return undefined;
             }
             return Elevatable.options.computed.computedElevation.call(this);
         },
-        computedRipple() {
+        computedRipple(): ComputedRipple {
             const defaultRipple = this.icon ? { circle: true } : true;
             if (this.disabled) {
                 return false;
             }
             return this.ripple ?? defaultRipple;
         },
-        hasBg() {
+        hasBg(): boolean {
             return !this.text && !this.outlined && !this.dashed && !this.icon;
         },
     },
@@ -99,7 +116,7 @@ export default Vue.extend({
             this.$emit("click", e);
             this.btnGroup && this.toggle();
         },
-        genContent() {
+        genContent(): VNode {
             return this.$createElement(
                 "span",
                 {
@@ -108,7 +125,7 @@ export default Vue.extend({
                 this.$slots.default,
             );
         },
-        genLoader() {
+        genLoader(): VNode {
             return this.$createElement(
                 "span",
                 {
@@ -126,16 +143,16 @@ export default Vue.extend({
             );
         },
     },
-    render(h) {
+    render(h): VNode {
         const children = [this.genContent(), this.loading && this.genLoader()];
         const { tag, data } = this.generateRouteLink();
         const setColor = this.hasBg ? this.setBackgroundColor : this.setTextColor;
 
         if (tag === "button") {
-            data.attrs.type = this.type;
-            data.attrs.disabled = this.disabled;
+            data.attrs!.type = this.type;
+            data.attrs!.disabled = this.disabled;
         }
-        data.attrs.value = ["string", "number"].includes(typeof this.value) ? this.value : JSON.stringify(this.value);
+        data.attrs!.value = ["string", "number"].includes(typeof this.value) ? this.value : JSON.stringify(this.value);
 
         return h(tag, this.disabled ? data : setColor(this.color, data), children);
     },

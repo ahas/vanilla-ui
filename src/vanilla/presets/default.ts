@@ -1,5 +1,5 @@
 // Styles
-import "../../styles/main.sass";
+import "../../styles/main.scss";
 
 // Locale
 import { en } from "../locale";
@@ -9,7 +9,7 @@ import { en } from "../locale";
 // import mdi from '../../services/icons/presets/mdi'
 
 // Types
-import { VanillaPreset } from "@/types/services/presets";
+import { VanillaPreset } from "../types/services/presets";
 
 export const preset: VanillaPreset = {
     breakpoint: {

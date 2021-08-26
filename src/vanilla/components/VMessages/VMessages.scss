@@ -1,0 +1,30 @@
+@import "./_variables";
+
+/* Theme */
+@include theme(v-messages) using ($theme) {
+    color: map-deep-get($theme, "text", "secondary");
+}
+
+.v-messages {
+    flex: 1 1 auto;
+    font-size: $messages-font-size;
+    min-height: $messages-min-height;
+    min-width: 1px; // Ensure takes up space with no messages and inside of flex
+    position: relative;
+
+    @include ltr() {
+        text-align: left;
+    }
+
+    @include rtl() {
+        text-align: right;
+    }
+
+    &__message {
+        line-height: $messages-line-height;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+    }
+}

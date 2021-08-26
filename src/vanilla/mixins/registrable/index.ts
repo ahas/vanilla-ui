@@ -29,7 +29,6 @@ export function inject<T extends string, C extends VueConstructor | null = null>
 
     return Vue.extend({
         name: "registrable-inject",
-
         inject: {
             [namespace]: {
                 default: defaultImpl,
@@ -41,7 +40,6 @@ export function inject<T extends string, C extends VueConstructor | null = null>
 export function provide(namespace: string, self = false) {
     return Vue.extend({
         name: "registrable-provide",
-
         provide(): object {
             return {
                 [namespace]: self

@@ -19,7 +19,6 @@ export type Groupable<T extends string, C extends VueConstructor | null = null> 
 export function factory<T extends string, C extends VueConstructor | null = null>(namespace: T, child?: string, parent?: string): Groupable<T, C> {
     return RegistrableInject<T, C>(namespace, child, parent).extend({
         name: "groupable",
-
         props: {
             activeClass: {
                 type: String,
@@ -31,13 +30,11 @@ export function factory<T extends string, C extends VueConstructor | null = null
             } as any as PropValidator<string>,
             disabled: Boolean,
         },
-
         data() {
             return {
                 isActive: false,
             };
         },
-
         computed: {
             groupClasses(): object {
                 if (!this.activeClass) return {};
@@ -47,15 +44,12 @@ export function factory<T extends string, C extends VueConstructor | null = null
                 };
             },
         },
-
         created() {
             this[namespace] && (this[namespace] as any).register(this);
         },
-
         beforeDestroy() {
             this[namespace] && (this[namespace] as any).unregister(this);
         },
-
         methods: {
             toggle() {
                 this.$emit("change");

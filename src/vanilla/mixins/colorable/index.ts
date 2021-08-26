@@ -39,7 +39,6 @@ export default Vue.extend({
 
             return data;
         },
-
         setTextColor(color?: string | false, data: VNodeData = {}): VNodeData {
             if (typeof data.style === "string") {
                 // istanbul ignore next

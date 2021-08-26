@@ -1,9 +1,8 @@
 // Styles
-import "./VRipple.sass";
+import "./VRipple.scss";
 
 // Utilities
 import { consoleWarn } from "../../utils/console";
-import { keyCodes } from "../../utils/helpers";
 
 // Types
 import { VNode, VNodeDirective } from "vue";
@@ -28,6 +27,8 @@ export interface RippleOptions {
     center?: boolean;
     circle?: boolean;
 }
+
+export type ComputedRipple = RippleOptions | boolean;
 
 function isTouchEvent(e: VuetifyRippleEvent): e is TouchEvent {
     return e.constructor.name === "TouchEvent";
@@ -205,7 +206,7 @@ function rippleHide(e: Event) {
         element._ripple.showTimerCommit = null;
 
         // re-queue ripple hiding
-        element._ripple.showTimer = setTimeout(() => {
+        element._ripple.showTimer = window.setTimeout(() => {
             rippleHide(e);
         });
         return;
@@ -234,7 +235,7 @@ function rippleCancelShow(e: MouseEvent | TouchEvent) {
 let keyboardRipple = false;
 
 function keyboardRippleShow(e: KeyboardEvent) {
-    if (!keyboardRipple && (e.keyCode === keyCodes.enter || e.keyCode === keyCodes.space)) {
+    if (!keyboardRipple && (e.code === "enter" || e.key === "space")) {
         keyboardRipple = true;
         rippleShow(e);
     }

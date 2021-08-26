@@ -1,0 +1,160 @@
+@import "./variables";
+
+// Theme
+@include theme(v-drawer) using ($theme) {
+    background-color: map-get($theme, "drawer");
+
+    &:not(.v-drawer--floating) {
+        .v-drawer__border {
+            background-color: map-get($theme, "dividers");
+        }
+    }
+
+    .v-divider {
+        border-color: map-get($theme, "dividers");
+    }
+}
+
+// Block
+.v-drawer {
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    pointer-events: auto;
+    top: 0;
+    transition-duration: 0.2s;
+    transition-timing-function: map-get($transition, "fast-out-slow-in");
+    will-change: transform;
+    transition-property: transform, visibility, width;
+    @include bootable();
+
+    &.v-drawer--right {
+        &:after {
+            left: 0;
+            right: initial;
+        }
+    }
+
+    .v-list:not(.v-select-list) {
+        background: inherit;
+    }
+}
+
+// Element
+.v-drawer__border {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: $drawer-border-width;
+}
+
+.v-drawer__content {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.v-drawer__image {
+    border-radius: inherit;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    contain: strict;
+    width: 100%;
+
+    .v-image {
+        border-radius: inherit;
+    }
+}
+
+// Modifier
+.v-drawer--bottom.v-drawer--is-mobile {
+    max-height: 50%;
+    top: auto;
+    bottom: 0;
+    min-width: 100%;
+}
+
+.v-drawer--right {
+    left: auto;
+    right: 0;
+
+    > .v-drawer__border {
+        right: auto;
+        left: 0;
+    }
+}
+
+.v-drawer--absolute {
+    z-index: 1;
+}
+
+.v-drawer--fixed {
+    z-index: 6;
+}
+
+.v-drawer--absolute {
+    position: absolute;
+}
+
+.v-drawer--clipped:not(.v-drawer--temporary):not(.v-drawer--is-mobile) {
+    z-index: 4;
+}
+
+.v-drawer--fixed {
+    position: fixed;
+}
+
+.v-drawer--floating:after {
+    display: none;
+}
+
+.v-drawer--mini-variant {
+    overflow: hidden;
+    .v-list-item {
+        > *:first-child {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        > *:not(:first-child) {
+            @include visually-hidden;
+        }
+    }
+
+    .v-list-group--no-action .v-list-group__items,
+    .v-list-group--sub-group {
+        display: none;
+    }
+
+    &.v-drawer--custom-mini-variant {
+        .v-list-item {
+            justify-content: center;
+        }
+    }
+}
+
+.v-drawer--temporary {
+    z-index: 7;
+}
+
+.v-drawer--mobile {
+    z-index: 6;
+}
+
+.v-drawer--close {
+    visibility: hidden;
+}
+
+.v-drawer--is-mobile,
+.v-drawer--temporary {
+    &:not(.v-drawer--close) {
+        @include elevation($drawer-mobile-temporary-elevation);
+    }
+}

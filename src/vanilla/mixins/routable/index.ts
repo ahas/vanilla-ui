@@ -1,18 +1,16 @@
 import Vue, { VNodeData, PropType } from "vue";
 
 // Directives
-import Ripple, { RippleOptions } from "../../directives/ripple";
+import Ripple, { ComputedRipple } from "../../directives/ripple";
 
 // Utilities
 import { getObjectValueByPath } from "../../utils/helpers";
 
 export default Vue.extend({
     name: "routable",
-
     directives: {
         Ripple,
     },
-
     props: {
         activeClass: String,
         append: Boolean,
@@ -35,12 +33,10 @@ export default Vue.extend({
         tag: String,
         target: String,
     },
-
     data: () => ({
         isActive: false,
         proxyClass: "",
     }),
-
     computed: {
         classes(): object {
             const classes: Record<string, boolean> = {};
@@ -52,7 +48,7 @@ export default Vue.extend({
 
             return classes;
         },
-        computedRipple(): RippleOptions | boolean {
+        computedRipple(): ComputedRipple {
             return this.ripple ?? (!this.disabled && this.isClickable);
         },
         isClickable(): boolean {
@@ -65,11 +61,9 @@ export default Vue.extend({
         },
         styles: () => ({}),
     },
-
     watch: {
         $route: "onRouteChange",
     },
-
     methods: {
         click(e: MouseEvent): void {
             this.$emit("click", e);
@@ -134,9 +128,10 @@ export default Vue.extend({
             return { tag, data };
         },
         onRouteChange() {
-            if (!this.to || !this.$refs.link || !this.$route) return;
+            if (!this.to || !this.$refs.link || !this.$route) {
+                return;
+            }
             const activeClass = `${this.activeClass} ${this.proxyClass || ""}`.trim();
-
             const path = `_vnode.data.class.${activeClass}`;
 
             this.$nextTick(() => {
